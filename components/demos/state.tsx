@@ -10,8 +10,12 @@ export default function State() {
   return (
     <div>
       <h3>State</h3>
-      <p>Count: {count}</p>
-      <Button onClick={() => setCount(count + 1)}>Increment</Button>
+      <p>
+        Count: <span data-test="count">{count}</span>
+      </p>
+      <Button onClick={() => setCount(count + 1)} data-test="inc">
+        Increment
+      </Button>
     </div>
   );
 }
