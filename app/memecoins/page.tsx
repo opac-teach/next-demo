@@ -3,13 +3,16 @@ import MemecoinList from './MemecoinList';
 import CreateMemecoinForm from './CreateMemecoinForm';
 import AutoRefresh from './AutoRefresh';
 import { Metadata } from 'next';
+import { isAuthenticated } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Memecoins - Liste',
   description: 'Découvrez les memecoins les plus populaires'
 };
 
-export default function MemecoinsPage() {
+export default async function MemecoinsPage() {
+  const authenticated = await isAuthenticated();
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Liste des Memecoins</h1>
@@ -24,10 +27,12 @@ export default function MemecoinsPage() {
           </Suspense>
         </div>
 
-        <div className="md:col-span-1">
-          <h2 className="text-2xl font-semibold mb-4">Créer un memecoin</h2>
-          <CreateMemecoinForm />
-        </div>
+        {authenticated && (
+          <div className="md:col-span-1">
+            <h2 className="text-2xl font-semibold mb-4">Créer un memecoin</h2>
+            <CreateMemecoinForm />
+          </div>
+        )}
       </div>
     </div>
   );

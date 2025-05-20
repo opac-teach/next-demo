@@ -61,14 +61,10 @@ export default function MemecoinDetails({ memecoin }: MemecoinDetailsProps) {
 
       <div className="flex flex-col md:flex-row items-start md:items-center mb-8 gap-6">
         <div className="relative w-24 h-24 md:w-32 md:h-32 bg-gray-100 rounded-full overflow-hidden">
-          <Image
+          <img
             src={logoUrl}
             alt={`Logo ${memecoin.name}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 96px, 128px"
-            unoptimized={!memecoin.logoUrl}
-            priority
+            className="object-cover w-full h-full"
           />
         </div>
 

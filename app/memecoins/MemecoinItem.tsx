@@ -24,16 +24,13 @@ export default function MemecoinItem({ memecoin }: MemecoinItemProps) {
     <Link href={`/memecoins/${memecoin.id}`}>
       <div className="p-4 border rounded-md hover:shadow-md transition-shadow cursor-pointer">
         <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 relative rounded-full overflow-hidden bg-gray-100">
-            <Image 
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100">
+            <img 
               src={logoUrl} 
               alt={`Logo ${memecoin.name}`} 
-              fill
-              className="object-cover"
-              sizes="64px"
-              unoptimized={!memecoin.logoUrl}
+              className="object-cover w-full h-full"
             />
-          </div>
+            </div>
           
           <div className="flex-1">
             <div className="flex justify-between items-start">

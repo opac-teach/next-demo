@@ -1,6 +1,4 @@
-import { useCallback } from 'react';
-import { revalidatePath } from 'next/cache';
-import MemecoinItem from './MemecoinItem';
+import MemecoinItem from '../../app/memecoins/MemecoinItem';
 
 interface Memecoin {
   id: string;
@@ -13,8 +11,7 @@ interface Memecoin {
 async function getMemecoins(): Promise<Memecoin[]> {
   try {
     const response = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins', {
-      cache: 'no-store',
-      next: { revalidate: 0 }
+      cache: 'force-cache'
     });
 
     if (!response.ok) {
@@ -28,11 +25,11 @@ async function getMemecoins(): Promise<Memecoin[]> {
       return [];
     }
 
-    return data.filter(item => 
-      item && 
-      typeof item === 'object' && 
-      'id' in item && 
-      'name' in item && 
+    return data.filter(item =>
+      item &&
+      typeof item === 'object' &&
+      'id' in item &&
+      'name' in item &&
       'symbol' in item
     );
   } catch (error) {
@@ -41,38 +38,30 @@ async function getMemecoins(): Promise<Memecoin[]> {
   }
 }
 
-export default async function MemecoinList() {
+export default async function MemecoinListSSG() {
   const memecoins = await getMemecoins();
-
-  async function refreshMemecoins() {
-    'use server';
-    revalidatePath('/memecoins');
-  }
+  const generatedTime = new Date().toLocaleString();
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <p className="text-sm text-gray-500">{memecoins.length} memecoins trouvés</p>
-        <form action={refreshMemecoins}>
-          <button 
-            type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-          >
-            Rafraîchir
-          </button>
-        </form>
+    <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="flex flex-col mb-6">
+        <h2 className="text-xl font-bold">{memecoins.length} memecoins trouvés (SSG)</h2>
+        <div className="text-sm text-gray-500 mt-2">
+          Cette liste est statique et générée au moment du build.
+          Date de génération : {generatedTime}
+        </div>
       </div>
 
       {memecoins.length === 0 ? (
-        <div className="p-8 border rounded-md text-center text-gray-500">
+        <p className="text-gray-500 text-center py-4">
           Aucun memecoin trouvé
-        </div>
+        </p>
       ) : (
-        <div className="space-y-4">
+        <ul className="space-y-4">
           {memecoins.map((memecoin) => (
             <MemecoinItem key={memecoin.id} memecoin={memecoin} />
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

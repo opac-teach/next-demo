@@ -1,6 +1,5 @@
-import { useCallback } from 'react';
 import { revalidatePath } from 'next/cache';
-import MemecoinItem from './MemecoinItem';
+import MemecoinItem from '../../app/memecoins/MemecoinItem';
 
 interface Memecoin {
   id: string;
@@ -13,8 +12,7 @@ interface Memecoin {
 async function getMemecoins(): Promise<Memecoin[]> {
   try {
     const response = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins', {
-      cache: 'no-store',
-      next: { revalidate: 0 }
+      next: { revalidate: 60 }
     });
 
     if (!response.ok) {
@@ -28,11 +26,11 @@ async function getMemecoins(): Promise<Memecoin[]> {
       return [];
     }
 
-    return data.filter(item => 
-      item && 
-      typeof item === 'object' && 
-      'id' in item && 
-      'name' in item && 
+    return data.filter(item =>
+      item &&
+      typeof item === 'object' &&
+      'id' in item &&
+      'name' in item &&
       'symbol' in item
     );
   } catch (error) {
@@ -41,7 +39,7 @@ async function getMemecoins(): Promise<Memecoin[]> {
   }
 }
 
-export default async function MemecoinList() {
+export default async function MemecoinListISR() {
   const memecoins = await getMemecoins();
 
   async function refreshMemecoins() {
@@ -50,29 +48,32 @@ export default async function MemecoinList() {
   }
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <p className="text-sm text-gray-500">{memecoins.length} memecoins trouvés</p>
+    <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold">{memecoins.length} memecoins trouvés (ISR)</h2>
+        <div className="text-sm text-gray-500 mr-4">
+          Auto-rafraîchissement toutes les 60 secondes
+        </div>
         <form action={refreshMemecoins}>
-          <button 
+          <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
           >
-            Rafraîchir
+            Rafraîchir maintenant
           </button>
         </form>
       </div>
 
       {memecoins.length === 0 ? (
-        <div className="p-8 border rounded-md text-center text-gray-500">
+        <p className="text-gray-500 text-center py-4">
           Aucun memecoin trouvé
-        </div>
+        </p>
       ) : (
-        <div className="space-y-4">
+        <ul className="space-y-4">
           {memecoins.map((memecoin) => (
             <MemecoinItem key={memecoin.id} memecoin={memecoin} />
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );
