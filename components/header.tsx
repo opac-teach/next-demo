@@ -9,6 +9,7 @@ import Link from "next/link";
 
 const links = [
   { href: "/demos", label: "Demos" },
+  { href: "/memecoins", label: "Memecoins" },
   { href: "/posts", label: "Posts" },
 ];
 
