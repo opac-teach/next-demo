@@ -2,7 +2,6 @@
 
 import { useEffect, useState, startTransition } from 'react';
 import Link from 'next/link';
-import CreateMemecoinForm from '@/components/memecoins/CreateMemecoinForm';
 
 interface Memecoin {
     id: string;
@@ -22,7 +21,7 @@ export default function MemecoinsPage() {
         setError(null);
 
         try {
-            const response = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins', {
+            const response = await fetch('http://localhost:3000/api/get-memecoins', {
                 cache: 'no-store',
             });
             if (!response.ok) throw new Error('Impossible de récupérer la liste des Memecoins.');
@@ -48,32 +47,19 @@ export default function MemecoinsPage() {
         return () => clearInterval(interval);
     }, []);
 
-    const handleAddMemecoin = () => {
-        // Utilisation de startTransition pour empêcher une mauvaise expérience utilisateur
-        startTransition(() => {
-            fetchMemecoins();
-        });
-    };
 
     return (
         <div className="container mx-auto p-4 relative">
-            {/* Bouton placé en haut à droite */}
             <div className="absolute top-4 right-4 flex space-x-2">
-                <Link href="/memecoins/alternative" passHref>
+                <Link href="/memecoins" passHref>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                        Accéder à la page de memecoins alternative
-                    </button>
-                </Link>
-                <Link href="/memecoins/prisma" passHref>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                        Accéder à la page de memecoins interne (prisma)
+                        Retour
                     </button>
                 </Link>
             </div>
             {/* Contenu principal */}
             <h1 className="text-2xl font-bold mb-4">Liste des Memecoins</h1>
 
-            <CreateMemecoinForm onSuccess={handleAddMemecoin} />
 
             {loading && !memecoins && <p className="text-gray-500">Chargement des memecoins...</p>}
             {error && <div className="text-red-500">Erreur : {error}</div>}
@@ -81,7 +67,7 @@ export default function MemecoinsPage() {
             {!loading && !error && memecoins.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                     {memecoins.map((memecoin) => (
-                        <Link key={memecoin.id} href={`/memecoins/${memecoin.id}`} passHref>
+                        <Link key={memecoin.id} href={`/memecoins/prisma/${memecoin.id}`} passHref>
                             <div className="border p-4 rounded shadow cursor-pointer hover:shadow-lg transition-shadow">
                                 <img
                                     src={memecoin.logoUrl}

@@ -13,7 +13,14 @@ export default function NavigationPage() {
     ];
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 relative">
+            <div className="absolute top-4 right-4 flex space-x-2">
+                <Link href="/memecoins" passHref>
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                        Retour
+                    </button>
+                </Link>
+            </div>
             <h1 className="text-2xl font-bold mb-4">Navigation vers les différentes pages :</h1>
             <ul className="list-disc pl-5 space-y-2">
                 {links.map((link, index) => (

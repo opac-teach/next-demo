@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import React from "react";
-import Link from "next/link";
 
 interface Memecoin {
     id: string;
@@ -10,14 +9,14 @@ interface Memecoin {
     logoUrl: string;
 }
 
+// Fonction fetch pour une API individuelle
 async function fetchMemecoin(id: string): Promise<{ data: Memecoin | null; error: string | null }> {
     try {
-        const response = await fetch(`https://nuxt-demo-blush.vercel.app/api/get-memecoins/${id}`, {
-            cache: "no-store", // Garanti des données fraîches
+        const response = await fetch(`http://localhost:3000/api/get-memecoins/${id}`, {
+            cache: "no-store",
         });
 
         if (!response.ok) {
-            // Si l'API retourne une erreur, capturez un message explicite
             return { data: null, error: "Erreur lors de la récupération du memecoin." };
         }
 
@@ -29,8 +28,9 @@ async function fetchMemecoin(id: string): Promise<{ data: Memecoin | null; error
     }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-    const { id } = await params
+// Gestion des métadonnées
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+    const { id } = params;
     const { data: memecoin, error } = await fetchMemecoin(id);
 
     if (error || !memecoin) {
@@ -55,8 +55,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
 }
 
-export default async function MemecoinDetailsPage({ params }: { params: Promise<{ id: string }>}) {
-    const { id } = await params
+// Page pour un memecoin spécifique
+export default async function MemecoinDetailsPage({ params }: { params: { id: string } }) {
+    const { id } = params;
     const { data: memecoin, error } = await fetchMemecoin(id);
 
     if (error || !memecoin) {
@@ -73,7 +74,6 @@ export default async function MemecoinDetailsPage({ params }: { params: Promise<
     }
 
     return (
-
         <div className="container mx-auto p-4">
             <div className="border p-4 rounded shadow">
                 <img
@@ -87,6 +87,5 @@ export default async function MemecoinDetailsPage({ params }: { params: Promise<
                 <p className="mt-2 text-gray-700">{memecoin.description}</p>
             </div>
         </div>
-
     );
 }
