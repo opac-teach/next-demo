@@ -73,8 +73,14 @@ export default async function MemecoinDetailsPage({ params }: { params: Promise<
     }
 
     return (
-
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 relative">
+            <div className="absolute top-4 right-4">
+                <Link href="/memecoins" passHref>
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                        Retour
+                    </button>
+                </Link>
+            </div>
             <div className="border p-4 rounded shadow">
                 <img
                     src={memecoin.logoUrl}
@@ -87,6 +93,5 @@ export default async function MemecoinDetailsPage({ params }: { params: Promise<
                 <p className="mt-2 text-gray-700">{memecoin.description}</p>
             </div>
         </div>
-
     );
 }

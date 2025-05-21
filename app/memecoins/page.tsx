@@ -14,7 +14,7 @@ interface Memecoin {
 
 export default function MemecoinsPage() {
     const [memecoins, setMemecoins] = useState<Memecoin[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
     const fetchMemecoins = async () => {
@@ -29,14 +29,12 @@ export default function MemecoinsPage() {
 
             const data = await response.json();
 
-            // Utiliser startTransition pour réduire les blocages sur l'interface
+            // Utiliser startTransition pour effectuer une mise à jour fluide
             startTransition(() => {
                 setMemecoins(data);
             });
         } catch (err) {
-            startTransition(() => {
-                setError((err as Error).message);
-            });
+            setError((err as Error).message);
         } finally {
             setLoading(false);
         }
@@ -44,12 +42,12 @@ export default function MemecoinsPage() {
 
     useEffect(() => {
         fetchMemecoins();
-        const interval = setInterval(() => fetchMemecoins(), 10000);
+        const interval = setInterval(() => fetchMemecoins(), 10000); // Rechargement automatique toutes les 10 secondes
         return () => clearInterval(interval);
     }, []);
 
     const handleAddMemecoin = () => {
-        // Utilisation de startTransition pour empêcher une mauvaise expérience utilisateur
+        // Lorsque vous créez un nouveau memecoin, rechargez les données ensuite
         startTransition(() => {
             fetchMemecoins();
         });
@@ -75,10 +73,14 @@ export default function MemecoinsPage() {
 
             <CreateMemecoinForm onSuccess={handleAddMemecoin} />
 
-            {loading && !memecoins && <p className="text-gray-500">Chargement des memecoins...</p>}
+            {/* Indicateur de chargement si l'utilisateur attend les données initiales */}
+            {loading && memecoins.length === 0 && (
+                <p className="text-gray-500">Chargement des memecoins...</p>
+            )}
             {error && <div className="text-red-500">Erreur : {error}</div>}
 
-            {!loading && !error && memecoins.length > 0 ? (
+            {/* Liste des memecoins */}
+            {!error && memecoins.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                     {memecoins.map((memecoin) => (
                         <Link key={memecoin.id} href={`/memecoins/${memecoin.id}`} passHref>
@@ -96,8 +98,13 @@ export default function MemecoinsPage() {
                         </Link>
                     ))}
                 </div>
-            ) : (
-                !loading && !error && <p className="text-gray-500">Aucun memecoin trouvé.</p>
+            )}
+
+            {/* Indicateur de mise à jour pendant un rechargement */}
+            {loading && memecoins.length > 0 && (
+                <div className="text-gray-500 text-sm fixed top-4 left-4 bg-gray-100 px-2 py-1 rounded shadow">
+                    🔄 Mise à jour en arrière-plan...
+                </div>
             )}
         </div>
     );
