@@ -1,14 +1,8 @@
 'use client';
 
 import MemecoinItem from './MemecoinItem';
+import { Memecoin } from '@/components/types/memecoin';
 
-interface Memecoin {
-    id: string;
-    name: string;
-    symbol: string;
-    description: string;
-    logoUrl: string;
-}
 
 interface MemecoinListProps {
     memecoins: Memecoin[];

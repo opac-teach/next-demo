@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-const SECRET_KEY: string = "votreclésecrète"; // Remplacez par une clé secrète robuste
-const PASSWORD: string = "mdp"; // Mot de passe défini pour l'authentification
+const SECRET_KEY = process.env.JWT_SECRET;
+const PASSWORD: string = "mdp";
 
 interface LoginRequestBody {
     password: string;
@@ -17,15 +17,20 @@ export async function POST(request: Request) {
         // Vérification du mot de passe
         if (body.password === PASSWORD) {
             // Générer un token JWT avec une durée de validité de 1 heure
+            if (!SECRET_KEY) {
+                throw new Error("JWT_SECRET environment variable is not defined");
+            }
             const token = jwt.sign({ loggedIn: true }, SECRET_KEY, { expiresIn: "1h" });
 
             // Créer la réponse et injecter le cookie sécurisé
             const response = NextResponse.json({ message: "Authentification réussie" });
+            const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             response.cookies.set("auth_token", token, {
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                path: "/",
-                maxAge: 3600, // Durée de 1 heure
+                httpOnly: true,
+                secure: true,
+                expires: expiresAt,
+                sameSite: 'lax',
+                path: '/',
             });
 
             return response;

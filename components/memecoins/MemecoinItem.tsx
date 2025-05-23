@@ -1,12 +1,6 @@
 'use client';
 
-interface Memecoin {
-    id: string;
-    name: string;
-    symbol: string;
-    description: string;
-    logoUrl: string;
-}
+import { Memecoin } from '@/components/types/memecoin';
 
 export default function MemecoinItem({ memecoin }: { memecoin: Memecoin }) {
     return (
