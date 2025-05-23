@@ -30,14 +30,12 @@ Dupliquer le fichier `.env.example` et renommez-le en `.env`. Ajoutez les valeur
 
 - **`DATABASE_URL`** : Lien de connexion à votre base de données PostgreSQL (ou autre).
 - **`JWT_SECRET`** : Clé secrète utilisée pour signer les tokens JWT.
-- **`MDP_LOGIN`** : Mot de passe utilisée pour le login
 
 **Exemple de fichier `.env` :**
 
 ```env
 DATABASE_URL="postgresql://postgres:admin@localhost:5432/mydb?schema=public"
 JWT_SECRET="votreclésecrète"
-MDP_LOGIN="mdp"
 ```
 ---
 ## Démarrage
@@ -52,8 +50,11 @@ npm install
 
 ### Configurer Prisma
 
-Après avoir configuré vos variables d'environnement, exécutez la commande suivante pour créer le client Prisma et appliquer les migrations à la base de données :
+Après avoir configuré vos variables d'environnement, exécutez les commandes suivantes pour créer le client Prisma et appliquer les migrations à la base de données :
 
+```bash
+npm prisma generate
+```
 ```bash
 npx prisma migrate dev
 ```

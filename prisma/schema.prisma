@@ -13,11 +13,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model Memecoin {
-  id          String  @id @default(cuid()) // ID unique généré automatiquement
-  name        String  @unique              // Nom unique du memecoin
-  symbol      String                      // Symbole
-  description String?                     // Description facultative
-  logoUrl     String                      // URL du logo
-  createdAt   DateTime @default(now())     // Date de création
+  id          String   @id @default(cuid()) // ID unique généré automatiquement
+  name        String   @unique // Nom unique du memecoin
+  symbol      String // Symbole
+  description String? // Description facultative
+  logoUrl     String // URL du logo
+  createdAt   DateTime @default(now()) // Date de création
+}
+
+model User {
+  id        String   @id @default(cuid()) // Identifiant unique
+  email     String   @unique // Adresse email unique pour chaque utilisateur
+  password  String // Mot de passe hashé
+  createdAt DateTime @default(now()) // Date de création du compte
 }

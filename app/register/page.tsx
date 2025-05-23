@@ -1,45 +1,42 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState, startTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-interface LoginFormInputs {
+interface RegisterFormInputs {
     email: string;
     password: string;
 }
 
-export default function LoginPage() {
+export default function RegisterPage() {
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
-    const router = useRouter();
 
-    const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-        setError(null); // Reset des erreurs
+    const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormInputs>();
+
+    const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
+        setError(null);
         setLoading(true);
 
         try {
-            const response = await fetch("/api/login", {
+            const response = await fetch("/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(data), // Envoie l'email et le mot de passe
+                body: JSON.stringify(data),
             });
 
             if (response.ok) {
-                startTransition(() => {
-                    window.location.reload()
-                    router.push("/"); // Redirection vers la page d'accueil
-                });
+                setSuccess(true);
             } else {
                 const resData = await response.json();
-                setError(resData.error || "Erreur inconnue lors de la connexion."); // Message d'erreur précis
+                setError(resData.error || "Une erreur s'est produite lors de l'inscription.");
             }
         } catch (err) {
-            console.error("Erreur de connexion :", err);
-            setError("Une erreur est survenue. Veuillez vérifier votre connexion et réessayer.");
+            console.error("Erreur d'inscription :", err);
+            setError("Une erreur est survenue. Veuillez réessayer.");
         } finally {
             setLoading(false);
         }
@@ -48,9 +45,14 @@ export default function LoginPage() {
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
             <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-                <h1 className="text-lg font-bold mb-4">Connexion</h1>
+                <h1 className="text-lg font-bold mb-4">Inscription</h1>
 
-                {/* Affichage du message d'erreur */}
+                {success && (
+                    <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        Inscription réussie ! Vous pouvez désormais vous connecter.
+                    </div>
+                )}
+
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
                         {error}
@@ -58,11 +60,8 @@ export default function LoginPage() {
                 )}
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    {/* Champ Email */}
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Adresse email :
-                        </label>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email :</label>
                         <input
                             type="email"
                             id="email"
@@ -73,46 +72,34 @@ export default function LoginPage() {
                                     message: "Entrez une adresse email valide."
                                 }
                             })}
-                            placeholder="Entrez votre email"
                             className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm ${
                                 errors.email ? "border-red-500" : "border-gray-300"
-                            } focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                            }`}
                         />
-                        {errors.email && (
-                            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                        )}
+                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                     </div>
 
-                    {/* Champ Mot de passe */}
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Mot de passe :
-                        </label>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Mot de passe :</label>
                         <input
                             type="password"
                             id="password"
                             {...register("password", { required: "Le mot de passe est requis." })}
-                            placeholder="Entrez votre mot de passe"
                             className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm ${
                                 errors.password ? "border-red-500" : "border-gray-300"
-                            } focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                            }`}
                         />
-                        {errors.password && (
-                            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-                        )}
+                        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                     </div>
 
-                    {/* Bouton de connexion */}
                     <button
                         type="submit"
-                        className={`w-full text-white rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 ${
-                            loading
-                                ? "bg-blue-400 cursor-not-allowed"
-                                : "bg-blue-500 hover:bg-blue-600"
+                        className={`w-full text-white rounded py-2 px-4 ${
+                            loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                         }`}
                         disabled={loading}
                     >
-                        {loading ? "Connexion en cours..." : "Se connecter"}
+                        {loading ? "Inscription..." : "S'inscrire"}
                     </button>
                 </form>
             </div>
