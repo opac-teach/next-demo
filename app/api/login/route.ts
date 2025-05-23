@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 const SECRET_KEY = process.env.JWT_SECRET;
-const PASSWORD: string = "mdp";
+const PASSWORD = process.env.MDP_LOGIN;
 
 interface LoginRequestBody {
     password: string;

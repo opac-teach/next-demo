@@ -1,39 +1,78 @@
-# NextJS-demo
+# NextJS Memecoin App
 
-This is an example project with a demo how to use React with NextJS
+Ce projet est un exercice pour apprendre à utiliser React avec NextJS tout en intégrant Prisma comme ORM pour établir une connexion à une base de données PostgreSQL. Il inclut des fonctionnalités telles que des composants côté serveur, des actions côté serveur et une gestion optimisée de l'environnement.
 
-https://next-demo-lyart-phi.vercel.app
+---
 
-### Course content
+## Table des matières
 
-https://teach.opac.me/cours/dev-frontend/nextjs
+1. [Prérequis](#prérequis)
+2. [Configuration](#configuration)
+3. [Démarrage](#démarrage)
 
-## Setup
+---
 
-Make sure to install dependencies:
+## Prérequis
 
-- NodeJS (LTS)
+Avant de démarrer, assurez-vous d'avoir installé les outils suivants :
 
-## Project Setup
+- **Node.js** (version LTS recommandée)
+- **npm** (ou un gestionnaire de packages équivalent)
+- **PostgreSQL** (ou autre base de données compatible avec Prisma)
 
-```sh
+---
+
+## Configuration
+
+### Variables d'environnement `.env`
+
+Dupliquer le fichier `.env.example` et renommez-le en `.env`. Ajoutez les valeurs nécessaires dans ce fichier en fonction de votre environnement. Voici les variables principales :
+
+- **`DATABASE_URL`** : Lien de connexion à votre base de données PostgreSQL (ou autre).
+- **`JWT_SECRET`** : Clé secrète utilisée pour signer les tokens JWT.
+- **`MDP_LOGIN`** : Mot de passe utilisée pour le login
+
+**Exemple de fichier `.env` :**
+
+```env
+DATABASE_URL="postgresql://postgres:admin@localhost:5432/mydb?schema=public"
+JWT_SECRET="votreclésecrète"
+MDP_LOGIN="mdp"
+```
+---
+## Démarrage
+
+### Installer les dépendances
+
+Exécutez la commande suivante pour installer toutes les dépendances du projet :
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Configurer Prisma
 
-```sh
+Après avoir configuré vos variables d'environnement, exécutez la commande suivante pour créer le client Prisma et appliquer les migrations à la base de données :
+
+```bash
+npx prisma migrate dev
+```
+
+### Lancer l'application en mode développement
+
+Pour démarrer l’application avec un rechargement dynamique (mode développement) :
+
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Compiler pour production
 
-```sh
+Pour préparer l’application pour la mise en production :
+
+```bash
 npm run build
 ```
 
-### Run linter
+---
 
-```sh
-npm run lint
-```
