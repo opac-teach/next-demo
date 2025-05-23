@@ -4,6 +4,8 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import path from "path";
 import { promises as fs } from "fs";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -63,3 +65,20 @@ export async function getFileContent(filePath: string): Promise<string> {
   const { content } = await response.json();
   return content;
 }
+
+
+export const handleLogout = async () => {
+  try {
+    const cookieStore = await cookies();
+
+    // Supprimer le cookie d'authentification
+    cookieStore.delete({
+      name: "auth_token",
+      path: "/",
+    });
+
+  } catch (error) {
+    console.error("Erreur lors de la déconnexion:", error);
+  }
+  redirect("/login");
+};
