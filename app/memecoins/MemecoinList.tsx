@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { revalidatePath } from 'next/cache';
 import MemecoinItem from './MemecoinItem';
 
