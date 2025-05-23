@@ -1,71 +1,48 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    navigationMenuTriggerStyle
+    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import ClientHeader from "@/components/ClientHeader";
 
-// Configuration des liens du menu
 const links = [
     { href: "/demos", label: "Demos" },
     { href: "/posts", label: "Posts" },
-    { href: "/memecoins", label: "Memecoins" }
+    { href: "/memecoins", label: "Memecoins" },
 ];
 
-export default function Header() {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-    const router = useRouter();
+export default async function Header() {
+    const cookieStore = await cookies();
+    const authToken = cookieStore.get("auth_token")?.value;
+    const SECRET_KEY = process.env.JWT_SECRET;
 
-    // Vérification de la connexion au chargement
-    useEffect(() => {
-        const token = Cookies.get("auth_token");
-        setIsLoggedIn(!!token);
-    }, []);
+    let isLoggedIn = false;
 
-    // Gestion de la déconnexion
-    const handleLogout = () => {
-        Cookies.remove("auth_token"); // Supprime le token des cookies
-        setIsLoggedIn(false); // Mise à jour directe de l'état
-        router.replace("/"); // Redirige vers la page d'accueil après déconnexion
-    };
-
-    // Gestion de la connexion
-    const handleLogin = () => {
-        router.replace("/login"); // Redirection vers l'accueil (ou toute autre page)
-    };
-
-    // Pendant le chargement initial
-    if (isLoggedIn === null) {
-        return (
-            <header className="bg-white border-b">
-                <div className="flex items-center justify-between p-4">
-                    <Link href="/" className="text-xl font-light">
-                        NextJS Demo App
-                    </Link>
-                    <nav>
-                        <span>Chargement...</span>
-                    </nav>
-                </div>
-            </header>
-        );
+    if (authToken && SECRET_KEY) {
+        try {
+            // Vérification du token JWT côté serveur
+            const decoded = jwt.verify(authToken, SECRET_KEY);
+            if (decoded) {
+                isLoggedIn = true;
+            }
+        } catch {
+            // En cas de token expiré ou invalide
+            isLoggedIn = false;
+        }
     }
 
     return (
         <header className="bg-white border-b">
             <div className="flex items-center justify-between p-4">
-                {/* Titre de l'application - lien vers l'accueil */}
                 <Link href="/" className="text-xl font-light">
                     NextJS Demo App
                 </Link>
 
-                {/* Menu de navigation */}
                 <NavigationMenu>
                     <NavigationMenuList>
                         {links.map((link) => (
@@ -79,21 +56,7 @@ export default function Header() {
                         ))}
 
                         <NavigationMenuItem>
-                            {isLoggedIn ? (
-                                <button
-                                    onClick={handleLogout}
-                                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
-                                >
-                                    Se déconnecter
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={handleLogin}
-                                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300"
-                                >
-                                    Se connecter
-                                </button>
-                            )}
+                            <ClientHeader isLoggedIn={isLoggedIn} />
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>

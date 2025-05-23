@@ -18,12 +18,3 @@ export default function MemecoinISRPage() {
         </div>
     );
 }
-
-// Déclare les paramètres dynamiques de génération
-export async function generateStaticParams() {
-    return [
-        { id: 'hsq1tty8fwq' },
-        { id: '0g1pjoaedy6' },
-        { id: 'ggak4ohs147' },
-    ];
-}

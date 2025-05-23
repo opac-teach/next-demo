@@ -1,5 +1,3 @@
-'use client';
-
 import MemecoinCSR from '@/components/memecoins/alternative/CSR/MemecoinCSR';
 import Link from "next/link";
 

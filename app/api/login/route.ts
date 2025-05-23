@@ -32,7 +32,6 @@ export async function POST(request: Request) {
                 sameSite: 'lax',
                 path: '/',
             });
-
             return response;
         }
 

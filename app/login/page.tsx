@@ -30,6 +30,7 @@ export default function LoginPage() {
             if (response.ok) {
                 // Transition non bloquante pour le redirection
                 startTransition(() => {
+                    window.location.reload();
                     router.push("/"); // Redirige vers la page d'accueil ou une destination spécifique
                 });
             } else {

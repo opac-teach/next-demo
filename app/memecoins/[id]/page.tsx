@@ -95,3 +95,12 @@ export default async function MemecoinDetailsPage({ params }: { params: Promise<
         </div>
     );
 }
+
+
+// Déclare les paramètres dynamiques de génération
+export async function generateStaticParams() {
+    const memecoins = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins').then((res) => res.json());
+    return memecoins.map((memecoin: Memecoin) => ({
+        slug: memecoin.id,
+    }));
+}

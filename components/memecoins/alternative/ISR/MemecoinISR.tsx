@@ -1,6 +1,7 @@
 import MemecoinView from '@/components/memecoins/alternative/Base_commune/Memecoin';
 import { Memecoin } from '@/components/types/memecoin';
 
+
 export default async function MemecoinISR() {
     try {
         const response = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins', {

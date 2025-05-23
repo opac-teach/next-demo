@@ -4,6 +4,7 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import path from "path";
 import { promises as fs } from "fs";
+import { cookies } from "next/headers";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -63,3 +64,14 @@ export async function getFileContent(filePath: string): Promise<string> {
   const { content } = await response.json();
   return content;
 }
+
+export async function logout() {
+  // Supprimer le cookie côté serveur
+  (await cookies()).set({
+    name: "auth_token",
+    value: "",
+    path: "/",
+    expires: new Date(0), // Date d’expiration passée
+  });
+}
+
