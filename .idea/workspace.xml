@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="60166835-4b40-4dec-a4fd-07662667d8af" name="Changes" comment=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="memecoins" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;G1TS23&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/G1TS23/next-demo.git&quot;,
+    &quot;accountId&quot;: &quot;7c2018bf-c933-4839-9bbd-33711949c448&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2xJcSECfDx2MsciEsfrOfTJmo2q" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "js.debugger.nextJs.config.created.client": "true",
+    "js.debugger.nextJs.config.created.server": "true",
+    "last_opened_file_path": "/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SwiftWorkspaceSettings">
+    <option name="detectedToolchain" value="true" />
+    <option name="toolchainPathValue" value="/Library/Developer/CommandLineTools" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60166835-4b40-4dec-a4fd-07662667d8af" name="Changes" comment="" />
+      <created>1747659614547</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747659614547</updated>
+      <workItem from="1747659615671" duration="47323000" />
+      <workItem from="1747820258171" duration="42129000" />
+    </task>
+    <task id="LOCAL-00001" summary=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations.">
+      <option name="closed" value="true" />
+      <created>1748005637284</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748005637284</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add generated Prisma files and IDE configuration to repo&#10;&#10;Generated Prisma client files were added for use in the app. IntelliJ IDEA-specific configuration and ignored files were also included, ensuring proper setup for local development." />
+    <MESSAGE value=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations." />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations." />
+  </component>
+</project>
