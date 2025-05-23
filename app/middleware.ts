@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
   const logged = await isAuthenticated(token);
 
   if (pathname.startsWith('/login') && logged) {
-    return NextResponse.redirect(new URL('/', req.url));
+    return NextResponse.redirect(new URL('/memecoins', req.url));
   }
 
   if (!logged && PROTECTED.some(p => pathname.startsWith(p))) {

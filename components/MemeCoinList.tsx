@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+
 import { fetchMemecoins } from '@/lib/api';
 import MemecoinItem from './MemecoinItem';
 
