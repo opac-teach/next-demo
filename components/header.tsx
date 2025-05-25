@@ -14,6 +14,7 @@ const links = [
     { href: "/demos", label: "Demos" },
     { href: "/posts", label: "Posts" },
     { href: "/memecoins", label: "Memecoins" },
+    { href: "/ranking", label: "Leaderboard" },
 ];
 
 export default async function Header() {

@@ -15,17 +15,26 @@ datasource db {
 }
 
 model Memecoin {
-  id          String   @id @default(cuid()) // ID unique généré automatiquement
-  name        String   @unique // Nom unique du memecoin
-  symbol      String // Symbole
-  description String? // Description facultative
-  logoUrl     String // URL du logo
-  createdAt   DateTime @default(now()) // Date de création
+  id          String   @id @default(cuid())
+  name        String   @unique
+  symbol      String
+  description String?
+  logoUrl     String
+  createdAt   DateTime @default(now())
+
+  // Supply actuelle des tokens
+  supply Int @default(0)
+
+  // Réserve de liquidité actuelle en ZTH
+  liquidity Float @default(0)
 }
 
 model User {
-  id        String   @id @default(cuid()) // Identifiant unique
-  email     String   @unique // Adresse email unique pour chaque utilisateur
-  password  String // Mot de passe hashé
-  createdAt DateTime @default(now()) // Date de création du compte
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  // Solde en ZTH de l'utilisateur
+  zthBalance Float @default(100)
 }
