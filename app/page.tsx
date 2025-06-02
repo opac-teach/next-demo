@@ -1,7 +1,10 @@
+import LocalStorage from "@/components/LocalStorage";
+
 export default function Home() {
   return (
     <div>
       <h1>Hello NextJS !</h1>
+      <LocalStorage />
     </div>
   );
 }

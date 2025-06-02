@@ -1,6 +1,6 @@
 "use client";
 
-import { postMemecoin } from "@/services/api/memecoins";
+import { postMemecoin } from "@/services/actions/memecoins";
 import { Inputs } from "@/services/interfaces";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form"
