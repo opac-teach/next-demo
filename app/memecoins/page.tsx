@@ -65,7 +65,7 @@ export default function MemecoinsPage() {
     return (
         <div className="container mx-auto p-4 relative">
             {/* Boutons de navigation en haut */}
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-end mb-4 space-x-4">
                 <Link href="/memecoins/alternative" passHref>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                         Accéder à la page de memecoins alternative
@@ -73,7 +73,7 @@ export default function MemecoinsPage() {
                 </Link>
                 <Link href="/memecoins/prisma" passHref>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                        Accéder à la page de memecoins interne (prisma)
+                        Accéder à la page de memecoins interne (prisma) avec vente ZTH
                     </button>
                 </Link>
             </div>
