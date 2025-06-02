@@ -25,26 +25,38 @@ export default function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xs mx-auto mt-10 p-4 border rounded">
-      <h1 className="text-xl mb-4">Connexion</h1>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-sm mx-auto mt-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-100"
+    >
+      <h1 className="text-2xl font-extrabold text-center text-green-900 mb-6 tracking-tight">
+        Connexion
+      </h1>
       <input
         type="email"
         placeholder="Email"
         value={email}
         onChange={e => setEmail(e.target.value)}
-        className="border px-2 py-1 w-full mb-2"
+        className="border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 px-3 py-2 w-full mb-4 rounded-lg outline-none transition"
       />
       <input
         type="password"
         placeholder="Mot de passe"
         value={password}
         onChange={e => setPassword(e.target.value)}
-        className="border px-2 py-1 w-full mb-2"
+        className="border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 px-3 py-2 w-full mb-4 rounded-lg outline-none transition"
       />
-      <button className="w-full bg-blue-600 text-white py-1 rounded" type="submit">
+      <button
+        className="w-full bg-gradient-to-r from-green-900 to-green-700 text-white py-2 rounded-lg font-semibold shadow hover:from-green-800 hover:to-green-600 transition"
+        type="submit"
+      >
         Se connecter
       </button>
-      {error && <div className="text-red-600 mt-2">{error}</div>}
+      {error && (
+        <div className="text-red-600 mt-4 text-center font-medium bg-red-50 border border-red-200 rounded p-2">
+          {error}
+        </div>
+      )}
     </form>
   );
 }

@@ -1,7 +1,5 @@
 "use server";
-"use client";
 
-import { useEffect, useState } from "react";
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import path from "path";
@@ -28,17 +26,6 @@ const posts = [
   { id: 2, title: "Second Post", content: "This is the second post" },
 ];
 
-export function useAuth() {
-  const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/me")
-      .then(res => setIsAuth(res.ok))
-      .catch(() => setIsAuth(false));
-  }, []);
-
-  return isAuth;
-}
 
 export async function createPost(formData: FormData) {
   const title = formData.get("title") as string;

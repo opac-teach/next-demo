@@ -12,20 +12,23 @@ type MemeCoin = {
 const MemecoinItem = ({ coin }: { coin: MemeCoin }) => (
   <Link href={`/memecoins/${coin.id}`} className="block">
     <li
-      className="flex items-center gap-4 p-4 mb-3 rounded-lg shadow hover:bg-gray-100 transition cursor-pointer"
-      style={{ border: "1px solid #e5e7eb" }}
+      className="flex flex-col sm:flex-row items-center gap-4 p-4 mb-3 rounded-2xl shadow-lg hover:bg-green-900/10 transition cursor-pointer"
+      style={{
+        border: "2px solid #1c3a2b",
+        background: "linear-gradient(90deg, #1c3a2b 0%, #183024 100%)",
+      }}
     >
       <Image
         src={coin.logoUrl}
         alt={coin.name}
         width={48}
         height={48}
-        className="rounded-full border"
+        className="rounded-full border-2 border-green-900 bg-white"
         style={{ background: "#fff" }}
       />
-      <div>
-        <div className="font-bold text-lg">{coin.name}</div>
-        <div className="text-gray-500 text-sm">{coin.symbol}</div>
+      <div className="flex flex-col items-center sm:items-start text-center sm:text-left w-full">
+        <div className="font-bold text-lg text-green-100">{coin.name}</div>
+        <div className="text-green-300 text-sm font-mono">{coin.symbol}</div>
       </div>
     </li>
   </Link>

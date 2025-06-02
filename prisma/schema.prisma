@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String     @id @default(uuid())
+  email          String     @unique
+  username       String     @unique
+  passwordHash   String
+  zthBalance     Float      @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  memecoins      Memecoin[] @relation("Creator")
+  transactions   Transaction[]
+  holdings       Holding[]
+  leaderboardSnapshots LeaderboardSnapshot[]
+}
+
+model Memecoin {
+  id             String        @id @default(uuid())
+  name           String        @unique
+  symbol         String        @unique
+  description    String?
+  creator        User          @relation("Creator", fields: [creatorId], references: [id])
+  creatorId      String
+  price          Float         @default(0)
+  totalSupply    Int           @default(1000000) // Supply par défaut
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  holdings       Holding[]
+  transactions   Transaction[]
+}
+
+model Holding {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  memecoin   Memecoin @relation(fields: [memecoinId], references: [id])
+  memecoinId String
+  amount     Int
+  averageBuyPrice Float // pour calcul du profit
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, memecoinId]) // 1 seule holding par coin par user
+}
+
+model Transaction {
+  id          String     @id @default(uuid())
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
+  memecoin    Memecoin   @relation(fields: [memecoinId], references: [id])
+  memecoinId  String
+  type        TransactionType
+  amount      Int
+  pricePerCoin Float
+  total       Float
+  createdAt   DateTime   @default(now())
+}
+
+enum TransactionType {
+  BUY
+  SELL
+}
+
+model LeaderboardSnapshot {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  zthScore  Float
+  createdAt DateTime @default(now())
+}
+

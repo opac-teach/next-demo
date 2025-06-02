@@ -80,30 +80,32 @@ const CreateMemecoinForm = ({ onCreated }: { onCreated?: () => void }) => {
 
   return (
     <form
-      className="max-w-md mx-auto p-4 bg-white rounded shadow mb-8"
+      className="w-full max-w-4xl mx-auto p-10 bg-white rounded-2xl shadow-lg border border-green-100"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-xl font-bold mb-4">Créer un Memecoin</h2>
-      <div className="mb-3">
-        <label className="block font-medium mb-1">
+      <h2 className="text-2xl font-extrabold text-center text-green-900 mb-6 tracking-tight">
+        Créer un Memecoin
+      </h2>
+      <div className="mb-4">
+        <label className="block font-medium mb-1 text-green-900">
           Nom <span className="text-red-500">*</span>
         </label>
         <input
-          className="w-full border rounded px-2 py-1"
+          className="w-full border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 px-3 py-2 rounded-lg outline-none transition"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           minLength={4}
           maxLength={16}
           required
         />
-        {errors.name && <div className="text-red-500 text-sm">{errors.name}</div>}
+        {errors.name && <div className="text-red-500 text-sm mt-1">{errors.name}</div>}
       </div>
-      <div className="mb-3">
-        <label className="block font-medium mb-1">
+      <div className="mb-4">
+        <label className="block font-medium mb-1 text-green-900">
           Symbole <span className="text-red-500">*</span>
         </label>
         <input
-          className="w-full border rounded px-2 py-1 uppercase"
+          className="w-full border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 px-3 py-2 rounded-lg outline-none transition uppercase"
           value={form.symbol}
           onChange={(e) =>
             setForm({ ...form, symbol: e.target.value.toUpperCase() })
@@ -114,26 +116,26 @@ const CreateMemecoinForm = ({ onCreated }: { onCreated?: () => void }) => {
           required
         />
         {errors.symbol && (
-          <div className="text-red-500 text-sm">{errors.symbol}</div>
+          <div className="text-red-500 text-sm mt-1">{errors.symbol}</div>
         )}
       </div>
-      <div className="mb-3">
-        <label className="block font-medium mb-1">Description</label>
+      <div className="mb-4">
+        <label className="block font-medium mb-1 text-green-900">Description</label>
         <textarea
-          className="w-full border rounded px-2 py-1"
+          className="w-full border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 px-3 py-2 rounded-lg outline-none transition"
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           maxLength={1000}
           rows={3}
         />
         {errors.description && (
-          <div className="text-red-500 text-sm">{errors.description}</div>
+          <div className="text-red-500 text-sm mt-1">{errors.description}</div>
         )}
       </div>
-      <div className="mb-3">
-        <label className="block font-medium mb-1">Logo URL</label>
+      <div className="mb-4">
+        <label className="block font-medium mb-1 text-green-900">Logo URL</label>
         <input
-          className="w-full border rounded px-2 py-1"
+          className="w-full border border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 px-3 py-2 rounded-lg outline-none transition"
           value={form.logoUrl}
           onChange={(e) => setForm({ ...form, logoUrl: e.target.value })}
           maxLength={200}
@@ -141,21 +143,21 @@ const CreateMemecoinForm = ({ onCreated }: { onCreated?: () => void }) => {
           placeholder="https://..."
         />
         {errors.logoUrl && (
-          <div className="text-red-500 text-sm">{errors.logoUrl}</div>
+          <div className="text-red-500 text-sm mt-1">{errors.logoUrl}</div>
         )}
       </div>
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        className="w-full bg-gradient-to-r from-green-900 to-green-700 text-white py-2 rounded-lg font-semibold shadow hover:from-green-800 hover:to-green-600 transition disabled:opacity-50"
         disabled={loading}
       >
         {loading ? "Création..." : "Créer"}
       </button>
       {errors.submit && (
-        <div className="text-red-500 text-sm mt-2">{errors.submit}</div>
+        <div className="text-red-500 text-sm mt-3 text-center">{errors.submit}</div>
       )}
       {success && (
-        <div className="text-green-600 text-sm mt-2">
+        <div className="text-green-700 text-sm mt-3 text-center bg-green-50 border border-green-200 rounded p-2">
           Memecoin créé avec succès !
         </div>
       )}
