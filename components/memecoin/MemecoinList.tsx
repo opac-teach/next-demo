@@ -32,7 +32,7 @@ export default function MemecoinList() {
 
     return (
         <>
-            {error && <NotificationError error={error} />}
+            {error && <NotificationError title="Erreur" message={error}/>}
             {memecoins.map((memecoin) => (
                 <MemecoinCard key={memecoin.id} memecoin={memecoin} />
             ))}

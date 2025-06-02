@@ -31,7 +31,7 @@ export default function DetailedMemecoin({ id }: { id: string }) {
 
     return (
         <>
-            {error && <NotificationError error={error} />}
+            {error && <NotificationError title="Erreur" message={error} />}
             {memecoin &&
                 <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
                     <div className="flex items-center space-x-4">
