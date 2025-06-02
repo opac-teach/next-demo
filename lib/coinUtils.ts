@@ -45,6 +45,7 @@ export async function createMemecoin(prevState: never, formData: FormData) {
     if (!response.ok) {
         throw new Error("Failed to create memecoin");
     }
+    revalidatePath('/prisma/coins');
     redirect('/prisma/coins');
 }
 
@@ -65,6 +66,7 @@ export async function deleteMemecoin(id: number) {
     const currentUrl = headersList.get('x-url') || headersList.get('referer');
 
     if (currentUrl && currentUrl.includes(`/prisma/coins/${id}`)) {
+        revalidatePath("/prisma/coins");
         redirect('/prisma/coins');
     } else {
         revalidatePath("/prisma/coins");
