@@ -43,6 +43,12 @@ export default async function Memecoins() {
 
 async function MemecoinsContent({ user }: { user: User | null }) {
     const memecoins = await getMemecoins();
+    memecoins.sort((a: Memecoin, b: Memecoin) => {
+        if (a.id < b.id) return -1; // a is older than b
+        if (a.id > b.id) return 1; // a is newer than b
+        return 0; // a and b are equal
+    });
+
     return (
         <>
             {memecoins.map((memecoin: Memecoin) => (
