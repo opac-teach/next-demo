@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import jwt from 'jsonwebtoken'
 
-const SECRET = 'd7bef0bfae1f4561b272157760364cce845dc880ceba5e2f256979a6accccd41'
+const SECRET = process.env.SECRET;
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
