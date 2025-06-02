@@ -52,19 +52,21 @@ describe("memecoin", () => {
         cy.get("input[name='name']").type("Test Coin");
         cy.get("input[name='symbol']").type("TST");
         cy.get("textarea[name='description']").type("Test Coin Description");
-        cy.get("input[name='logoUrl']").type("https://example.com/test-coin.png");
+        cy.get("input[name='logoUrl']").type("https://picsum.photos/200");
         cy.get("form > button").click();
         cy.wait(1000);
         cy.get("div[data-test='memecoins-list'] > a:last-child > div[data-test='memecoin'] > div[data-test='memecoin-name']").contains("Test Coin");
         cy.get("div[data-test='memecoins-list'] > a:last-child > div[data-test='memecoin'] > div[data-test='memecoin-symbol']").contains("TST");
-        cy.get("div[data-test='memecoins-list'] > a:last-child > span[data-test='memecoin-author']").contains("olivier");
+        cy.get("div[data-test='memecoins-list'] > a:last-child > span[data-test='memecoin-author']").contains("Me");
         cy.get("div[data-test='memecoins-list'] > a:last-child").then(($a) => {
         const href = $a.attr("href");
         cy.wrap($a).click({ multiple: true });
         cy.url().should("include", href);
         });
-        cy.get("span").contains("Test Coin");
-        cy.get("span > span").contains("TST");
+        cy.get("[data-test='coin-name']").contains("Test Coin");
+        cy.get("[data-test='coin-symbol']").contains("TST");
+        cy.get("[data-test='coin-author']").contains("Me");
+        cy.get("[data-test='coin-desc']").contains("Test Coin Description");
     });
 });
 
