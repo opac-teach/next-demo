@@ -8,7 +8,7 @@ import {revalidatePath} from "next/cache";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export async function getMemecoins() {
-    const response = await fetch(`${API_URL}/api/memecoins`);
+    const response = await fetch(`${API_URL}/api/memecoins`, {cache: "no-store"});
     if (!response.ok) {
         throw new Error("Failed to fetch memecoins");
     }
@@ -16,7 +16,7 @@ export async function getMemecoins() {
 }
 
 export async function getMemecoin(id: string) {
-    const response = await fetch(`${API_URL}/api/memecoins/memecoin?id=${id}`);
+    const response = await fetch(`${API_URL}/api/memecoins/memecoin?id=${id}`, {cache: "no-store"});
     if (!response.ok) {
         throw new Error("Failed to fetch memecoin");
     }
@@ -25,14 +25,14 @@ export async function getMemecoin(id: string) {
 
 export async function createMemecoin(prevState: never, formData: FormData) {
 
-    const user: User = await getUser();
+    const user: User | null = await getUser();
 
     const memecoin = {
         name: formData.get("name") as string,
         symbol: formData.get("symbol") as string,
         description: formData.get("description") as string,
-        logoUrl: formData.get("logo") as string,
-        authorId: user.id,
+        logoUrl: formData.get("logoUrl") as string,
+        authorId: user?.id,
     }
     const response = await fetch(`${API_URL}/api/memecoins/create`, {
         method: "POST",
@@ -48,10 +48,10 @@ export async function createMemecoin(prevState: never, formData: FormData) {
 }
 
 export async function deleteMemecoin(id: number) {
-    const user: User = await getUser();
+    const user: User | null = await getUser();
     const memecoin: Memecoin = await getMemecoin(id.toString());
 
-    if(user.id !== memecoin.authorId){
+    if(user == null || user.id !== memecoin.authorId){
         throw new Error("Something went wrong");
     }
     const response = await fetch(`${API_URL}/api/memecoins/delete?id=${id}`,
@@ -59,6 +59,5 @@ export async function deleteMemecoin(id: number) {
     if (!response.ok) {
         throw new Error("Failed to fetch memecoin");
     }
-    revalidatePath("/prisma/coins");
-    return await response.json();
+    redirect("/prisma/coins");
 }
