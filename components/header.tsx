@@ -11,8 +11,6 @@ import {
 import ClientHeader from "@/components/ClientHeader";
 
 const links = [
-    { href: "/demos", label: "Demos" },
-    { href: "/posts", label: "Posts" },
     { href: "/memecoins", label: "Memecoins" },
     { href: "/ranking", label: "Leaderboard" },
 ];
@@ -41,7 +39,7 @@ export default async function Header() {
         <header className="bg-white border-b">
             <div className="flex items-center justify-between p-4">
                 <Link href="/" className="text-xl font-light">
-                    NextJS Demo App
+                    Memecoins trader
                 </Link>
 
                 <NavigationMenu>

@@ -2,7 +2,17 @@
 
 import { useState } from 'react';
 
-export default function MemecoinTrade({ memecoinId, userId }: { memecoinId: string; userId: string }) {
+export default function MemecoinTrade({
+                                          memecoinId,
+                                          userId,
+                                          availableQuantity,
+                                          userBalance, // Nouvelle propriété pour la balance ZTH de l'utilisateur
+                                      }: {
+    memecoinId: string;
+    userId: string;
+    availableQuantity: number;
+    userBalance: number; // La balance ZTH de l'utilisateur
+}) {
     const [quantity, setQuantity] = useState<number>(0);
     const [message, setMessage] = useState<string | null>(null);
 
@@ -39,6 +49,12 @@ export default function MemecoinTrade({ memecoinId, userId }: { memecoinId: stri
     return (
         <div className="trade-container">
             <h3 className="text-lg font-bold">Trader des Memecoins</h3>
+            <p className="text-gray-600">
+                <span className="font-bold">Quantité disponible :</span> {availableQuantity} tokens
+            </p>
+            <p className="text-gray-600">
+                <span className="font-bold">Votre solde ZTH :</span> {userBalance} ZTH
+            </p>
 
             {message && <p className="text-green-600">{message}</p>}
 

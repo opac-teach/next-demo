@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'; // Pour accéder aux cookies côté serveur
-import jwt from 'jsonwebtoken'; // Pour vérifier le token JWT
+import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@/lib/generated/prisma';
 import MemecoinTrade from '@/components/memecoins/prisma/MemecoinTrade';
 
@@ -62,8 +62,13 @@ export default async function MemecoinDetailsPage({ params }: { params: Promise<
             </h1>
             <p>{memecoin.description}</p>
 
-            {/* Passer l'utilisateur réel au composant */}
-            <MemecoinTrade memecoinId={memecoin.id} userId={userId} />
+            {/* Passer la quantité disponible et la balance utilisateur */}
+            <MemecoinTrade
+                memecoinId={memecoin.id}
+                userId={userId}
+                availableQuantity={memecoin.supply} // Quantité disponible
+                userBalance={user.zthBalance} // Balance utilisateur
+            />
         </div>
     );
 }
