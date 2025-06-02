@@ -1,6 +1,6 @@
 'use client';
 
-import NotificationError from "@/components/notification/Error";
+import NotificationError from "@/components/notification/NotificationError";
 import { fetchMemecoins } from '@/lib/memecoin';
 import { Memecoin } from "@/types/memecoin";
 import { useEffect, useState } from 'react';
@@ -19,10 +19,10 @@ export default function MemecoinList() {
             setError(error instanceof Error ? error.message : 'Unknown error');
         }
     }
-    
+
     useEffect(() => {
         refreshMemecoin();
-        
+
         const interval = setInterval(async () => {
             refreshMemecoin();
         }, 10000);

@@ -2,11 +2,11 @@ import { Memecoin } from '@/types/memecoin';
 
 export default function MemecoinCard({ memecoin }: { memecoin: Memecoin }) {
     return (
-        <div style={{ border: '1px solid #ccc', margin: '1rem', padding: '1rem' }}>
+        <a href={`/memecoins/${memecoin.id}`} className="block border border-gray-300 m-4 p-4 no-underline text-current">
             <img src={memecoin.logoUrl} alt={`${memecoin.name} logo`} style={{ width: '50px' }} />
             <h2>{memecoin.name} ({memecoin.symbol})</h2>
             <p>{memecoin.description}</p>
             <small>Owner: {memecoin.owner}</small>
-        </div>
+        </a>
     );
 }
