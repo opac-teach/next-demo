@@ -42,7 +42,13 @@ export async function POST(request: Request) {
             data: { zthBalance: user.zthBalance - cost },
         });
 
-        return NextResponse.json({ memecoin: updatedMemecoin, user: updatedUser });
+        // Retourner les données nécessaires au front-end
+        return NextResponse.json({
+            success: true,
+            totalCost: cost, // Coût total pour l'achat
+            updatedSupply: updatedMemecoin.supply, // Quantité disponible mise à jour
+            updatedBalance: updatedUser.zthBalance, // Solde utilisateur mis à jour
+        });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });

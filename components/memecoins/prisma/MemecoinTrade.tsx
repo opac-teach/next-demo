@@ -5,17 +5,21 @@ import { useState } from 'react';
 export default function MemecoinTrade({
                                           memecoinId,
                                           userId,
-                                          availableQuantity,
-                                          userBalance, // Nouvelle propriété pour la balance ZTH de l'utilisateur
+                                          availableQuantity: initialAvailableQuantity,
+                                          userBalance: initialUserBalance,
                                       }: {
     memecoinId: string;
     userId: string;
     availableQuantity: number;
-    userBalance: number; // La balance ZTH de l'utilisateur
+    userBalance: number;
 }) {
+    // Créez des états locaux pour gérer les quantités et le solde utilisateur
     const [quantity, setQuantity] = useState<number>(0);
+    const [availableQuantity, setAvailableQuantity] = useState<number>(initialAvailableQuantity);
+    const [userBalance, setUserBalance] = useState<number>(initialUserBalance);
     const [message, setMessage] = useState<string | null>(null);
 
+    // Fonction pour gérer l'achat de tokens
     const handleMint = async () => {
         const response = await fetch('/api/mint', {
             method: 'POST',
@@ -24,8 +28,11 @@ export default function MemecoinTrade({
         });
 
         const data = await response.json();
+
         if (response.ok) {
             setMessage(`Achat réussi : ${quantity} tokens achetés !`);
+            setAvailableQuantity(data.updatedSupply); // Mise à jour de la quantité disponible
+            setUserBalance(data.updatedBalance); // Mise à jour du solde utilisateur
         } else {
             setMessage(data.error ?? 'Une erreur est survenue.');
         }
@@ -39,8 +46,11 @@ export default function MemecoinTrade({
         });
 
         const data = await response.json();
+
         if (response.ok) {
             setMessage(`Vente réussie : ${quantity} tokens vendus !`);
+            setAvailableQuantity(data.updatedSupply); // Mise à jour de la quantité disponible
+            setUserBalance(data.updatedBalance); // Mise à jour du solde utilisateur
         } else {
             setMessage(data.error ?? 'Une erreur est survenue.');
         }
