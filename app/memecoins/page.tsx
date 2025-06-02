@@ -35,10 +35,16 @@ export default function MemecoinsPage() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Memecoins</h1>
-      <MemecoinForm onSuccess={fetchMemecoins} />
-      {loading && <p>Chargement...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      <MemecoinList memecoins={memecoins} />
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="md:w-1/3">
+          <MemecoinForm onSuccess={fetchMemecoins} />
+        </div>
+        <div className="md:w-2/3">
+          {loading && <p>Chargement...</p>}
+          {error && <p className="text-red-500">{error}</p>}
+          <MemecoinList memecoins={memecoins} />
+        </div>
+      </div>
     </div>
   ) 
 }

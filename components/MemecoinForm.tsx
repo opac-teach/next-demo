@@ -50,29 +50,74 @@ export default function MemecoinForm({ onSuccess }: { onSuccess: () => void }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 mb-6 bg-white/80 shadow-xl rounded-xl px-8 py-8 border border-gray-200"
+    >
+      <h2 className="text-xl font-bold text-center mb-2 text-green-700">Créer un Memecoin</h2>
       <div>
-        <label className="block">Nom</label>
-        <input name="name" value={form.name} onChange={handleChange} className="border p-2 w-full" />
-        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+        <label className="block font-semibold text-gray-700 mb-1">Nom</label>
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          className={`border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition ${
+            errors.name ? 'border-red-400' : 'border-gray-300'
+          }`}
+        />
+        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
       </div>
       <div>
-        <label className="block">Symbole</label>
-        <input name="symbol" value={form.symbol} onChange={handleChange} className="border p-2 w-full" />
-        {errors.symbol && <p className="text-red-500 text-sm">{errors.symbol}</p>}
+        <label className="block font-semibold text-gray-700 mb-1">Symbole</label>
+        <input
+          name="symbol"
+          value={form.symbol}
+          onChange={handleChange}
+          className={`border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition ${
+            errors.symbol ? 'border-red-400' : 'border-gray-300'
+          }`}
+        />
+        {errors.symbol && <p className="text-red-500 text-xs mt-1">{errors.symbol}</p>}
       </div>
       <div>
-        <label className="block">Description</label>
-        <textarea name="description" value={form.description} onChange={handleChange} className="border p-2 w-full" />
-        {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+        <label className="block font-semibold text-gray-700 mb-1">Description</label>
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          className={`border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition resize-none ${
+            errors.description ? 'border-red-400' : 'border-gray-300'
+          }`}
+          rows={3}
+        />
+        {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
       </div>
       <div>
-        <label className="block">Logo URL</label>
-        <input name="logoUrl" value={form.logoUrl} onChange={handleChange} className="border p-2 w-full" />
-        {errors.logoUrl && <p className="text-red-500 text-sm">{errors.logoUrl}</p>}
+        <label className="block font-semibold text-gray-700 mb-1">Logo URL</label>
+        <input
+          name="logoUrl"
+          value={form.logoUrl}
+          onChange={handleChange}
+          className={`border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-green-400 transition ${
+            errors.logoUrl ? 'border-red-400' : 'border-gray-300'
+          }`}
+        />
+        {errors.logoUrl && <p className="text-red-500 text-xs mt-1">{errors.logoUrl}</p>}
       </div>
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">Ajouter</button>
-      {message && <p className="text-sm mt-2">{message}</p>}
+      <button
+        type="submit"
+        className="w-full bg-green-700 text-white font-semibold py-2 rounded-lg shadow hover:bg-green-500 transition"
+      >Ajouter
+      </button>
+      {message && (
+        <p
+          className={`text-center text-sm mt-2 ${
+            message.startsWith('Erreur') ? 'text-red-600' : 'text-green-700'
+          }`}
+        >
+          {message}
+        </p>
+      )}
     </form>
   )
 }
