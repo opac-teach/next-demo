@@ -1,0 +1,21 @@
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+
+export async function POST() {
+
+  const cookieStore = await cookies();
+  
+  cookieStore.set('access_token', '', {
+    httpOnly: true,
+    path: '/',
+    expires: new Date(0),
+  });
+
+  cookieStore.set('current_user', '', {
+    httpOnly: true,
+    path: '/',
+    expires: new Date(0),
+  });
+
+  return NextResponse.json({ ok: true });
+}
