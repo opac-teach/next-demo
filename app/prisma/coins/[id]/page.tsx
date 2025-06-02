@@ -4,6 +4,8 @@ import {getMemecoin} from "@/lib/coinUtils";
 import {Memecoin, User} from "@/app/generated/prisma";
 import {getUser} from "@/lib/userUtils";
 import CoinDetails from "@/components/prisma/coinDetails";
+import {Suspense} from "react";
+import {CoinDetailsSkeleton} from "@/components/prisma/CoinDetailsSkeleton";
 
 export default async function GetMemecoin({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -14,6 +16,9 @@ export default async function GetMemecoin({ params }: { params: Promise<{ id: st
     }
 
     return (
+        <Suspense fallback={<CoinDetailsSkeleton />}>
         <CoinDetails memecoin={memecoin} user={user} />
+        </Suspense>
+
     );
 }
