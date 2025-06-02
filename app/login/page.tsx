@@ -29,7 +29,7 @@ export default function Login() {
                         <Label htmlFor="password"></Label>
                         <Input type={toggle} name="password" placeholder="password" required/>
                         <Label className="cursor-pointer underline text-center" onClick={togglePassword}>{hide} password</Label>
-                        <Button type="submit" disabled={isPending}>Login</Button>
+                        <Button className="mt-4" type="submit" disabled={isPending}>Login</Button>
                     </form>
                     {state && state.error && <p className="text-red-500">Invalid password</p>}
                     <Link className="mt-4" href="/register"><u>Register</u></Link>
