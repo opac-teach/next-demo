@@ -1,12 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/hooks/useAuth';
 
 export default function LoginPage() {
 	const router = useRouter();
-	const { isAuthenticated } = useAuth();
 	const [error, setError] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -29,12 +27,6 @@ export default function LoginPage() {
 			setError(data.error || 'Login failed');
 		}
 	};
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			router.replace('/memecoins');
-		}
-	}, [isAuthenticated, router]);
 
 	return (
 		<div className="p-8 max-w-md mx-auto">
