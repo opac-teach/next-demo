@@ -11,7 +11,9 @@ export function middleware(req: NextRequest) {
 
   if (token) {
     try {
-      jwt.verify(token, SECRET)
+      if (SECRET) {
+        jwt.verify(token, SECRET)
+      }
       authenticated = true
     } catch {}
   }
