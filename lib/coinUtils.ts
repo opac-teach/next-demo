@@ -4,6 +4,7 @@ import {getUser} from "@/lib/userUtils";
 import {Memecoin, User} from "@/app/generated/prisma";
 import {redirect} from "next/navigation";
 import {revalidatePath} from "next/cache";
+import {headers} from "next/headers";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -59,5 +60,15 @@ export async function deleteMemecoin(id: number) {
     if (!response.ok) {
         throw new Error("Failed to fetch memecoin");
     }
-    revalidatePath("/prisma/coins");
+
+    const headersList = await headers();
+    const currentUrl = headersList.get('x-url') || headersList.get('referer');
+
+    if (currentUrl && currentUrl.includes(`/prisma/coins/${id}`)) {
+        redirect('/prisma/coins');
+    } else {
+        revalidatePath("/prisma/coins");
+    }
+
+
 }
