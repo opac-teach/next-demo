@@ -26,7 +26,7 @@ export async function GET() {
     } catch (error) {
         return NextResponse.json({
             isAuthenticated: false,
-            error: "Invalid token"
+            error: error
         });
     }
 }

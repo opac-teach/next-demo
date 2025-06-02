@@ -16,11 +16,12 @@ const links = [
   { href: "/demos", label: "Demos" },
   { href: "/posts", label: "Posts" },
   { href: "/memecoins", label: "Memecoins" },
+  { href: "/memecoinsDB", label: "Memecoins from DB" },
 ];
 
 export default function Header() {
   // Ajout d'un état pour stocker les informations de session
-  const [session, setSession] = useState<{ isAuthenticated: boolean; user?: any } | null>(null);
+  const [session, setSession] = useState<{ isAuthenticated: boolean; user?: object } | null>(null);
 
   // Récupérer la session au chargement du composant
   useEffect(() => {

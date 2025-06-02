@@ -14,7 +14,6 @@ interface Memecoin {
 }
 
 const MemecoinsPageId = ({ params }: { params: Promise<{ id: string }> }) => {
-    // Unwrap params using React.use()
     const resolvedParams = use(params);
     const id = resolvedParams.id;
 

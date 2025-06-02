@@ -43,7 +43,11 @@ export default function LoginPage() {
             router.refresh();
 
         } catch (err) {
-            setError(err.message || "Une erreur est survenue lors de la connexion");
+            if (err instanceof Error) {
+                setError(err.message || "Une erreur est survenue lors de la connexion");
+            } else {
+                setError("Une erreur est survenue lors de la connexion");
+            }
         } finally {
             setIsLoading(false);
         }

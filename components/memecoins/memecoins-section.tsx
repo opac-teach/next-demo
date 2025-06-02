@@ -29,7 +29,6 @@ const MemecoinsSection = () => {
             }
 
             const data = await response.json();
-            console.log("Données récupérées:", data);
 
             if (data && Array.isArray(data.memecoins)) {
                 setMemecoins(data.memecoins);
