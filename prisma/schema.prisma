@@ -27,6 +27,10 @@ model Memecoin {
 
   // Réserve de liquidité actuelle en ZTH
   liquidity Float @default(0)
+
+  Transaction Transaction[]
+
+  UserHolding UserHolding[]
 }
 
 model User {
@@ -37,4 +41,32 @@ model User {
 
   // Solde en ZTH de l'utilisateur
   zthBalance Float @default(100)
+
+  Transaction Transaction[]
+
+  UserHolding UserHolding[]
+}
+
+model Transaction {
+  id         String   @id @default(cuid()) // ID unique pour chaque transaction
+  memecoin   Memecoin @relation(fields: [memecoinId], references: [id]) // Relation avec Memecoin
+  memecoinId String // Champ pour la clé étrangère vers Memecoin
+  user       User     @relation(fields: [userId], references: [id]) // Relation avec User
+  userId     String // Clé étrangère liée à User
+  type       String // Type de transaction : "buy" ou "sell"
+  quantity   Int // Quantité de tokens échangés
+  price      Float // Prix total de la transaction
+  createdAt  DateTime @default(now()) // Timestamp de création
+}
+
+model UserHolding {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id]) // Relation avec User
+  userId     String
+  memecoin   Memecoin @relation(fields: [memecoinId], references: [id]) // Relation avec Memecoin
+  memecoinId String
+  quantity   Int // Quantité possédée
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

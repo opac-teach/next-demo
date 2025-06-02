@@ -46,120 +46,115 @@ export default function MemecoinTrade({
         }
     }, [quantity, operationType, availableQuantity, slope, intercept]);
 
-    const handleMint = async () => {
-        const response = await fetch('/api/mint', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ memecoinId, userId, tokensToMint: quantity }),
-        });
+    const handleTrade = async () => {
+        try {
+            const response = await fetch('/api/trading/trade', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ memecoinId, userId, quantity, type: operationType }),
+            });
 
-        const data = await response.json();
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Une erreur est survenue.');
+            }
 
-        if (response.ok) {
-            setMessage(`Achat réussi : ${quantity} tokens achetés pour ${price.toFixed(2)} ZTH !`);
-            setAvailableQuantity(data.updatedSupply);
-            setUserBalance(data.updatedBalance);
-            setLiquidity(liquidity + price);
-        } else {
-            setMessage(data.error ?? 'Une erreur est survenue.');
-        }
-    };
+            const data = await response.json();
 
-    const handleBurn = async () => {
-        const response = await fetch('/api/burn', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ memecoinId, userId, tokensToBurn: quantity }),
-        });
+            setMessage(
+                operationType === "buy"
+                    ? `Achat réussi : ${quantity} tokens achetés pour ${price.toFixed(2)} ZTH !`
+                    : `Vente réussie : ${quantity} tokens vendus pour ${price.toFixed(2)} ZTH !`
+            );
 
-        const data = await response.json();
+            setAvailableQuantity(data.updatedMemecoin.supply);
+            setUserBalance(data.updatedUser.zthBalance);
+            setLiquidity(data.updatedMemecoin.liquidity);
 
-        if (response.ok) {
-            setMessage(`Vente réussie : ${quantity} tokens vendus pour ${price.toFixed(2)} ZTH !`);
-            setAvailableQuantity(data.updatedSupply);
-            setUserBalance(data.updatedBalance);
-            setLiquidity(liquidity - price);
-        } else {
-            setMessage(data.error ?? 'Une erreur est survenue.');
-        }
-    };
-
-    const handleTrade = () => {
-        if (operationType === "buy") {
-            handleMint();
-        } else {
-            handleBurn();
+            // Réinitialiser la quantité après l'opération réussie
+            setQuantity(0);
+        } catch (error) {
+            setMessage(
+                error instanceof Error
+                    ? error.message || 'Une erreur inattendue est survenue.'
+                    : 'Une erreur inattendue est survenue.'
+            );
         }
     };
 
     return (
-        <div className="trade-container bg-white shadow-md rounded-lg p-6 mt-6">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Trader des Memecoins</h3>
+        <div className="trade-container bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">
+                {operationType === "buy" ? "Acheter" : "Vendre"} des Memecoins
+            </h2>
             <div className="mb-4">
-                <p className="text-gray-600">
-                    <span className="font-bold">Quantité disponible :</span> {availableQuantity} tokens
-                </p>
-                <p className="text-gray-600">
-                    <span className="font-bold">Votre solde ZTH :</span> {userBalance.toFixed(2)} ZTH
-                </p>
-                <p className="text-gray-600">
-                    <span className="font-bold">Liquidité :</span> {liquidity.toFixed(2)} ZTH
-                </p>
+                <label htmlFor="quantity" className="block text-gray-700 font-medium mb-2">
+                    Quantité :
+                </label>
+                <input
+                    id="quantity"
+                    type="number"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.max(0, Number(e.target.value)))}
+                    className="w-full border rounded-lg p-2"
+                    placeholder="Entrez la quantité"
+                />
             </div>
 
-            {message && (
-                <p className="text-green-600 font-semibold mb-4 p-2 rounded bg-green-100">
-                    {message}
-                </p>
-            )}
-
-            <div className="flex gap-4 mt-4">
-                <button
-                    onClick={() => setOperationType("buy")}
-                    className={`px-4 py-2 rounded-lg font-bold text-sm transition ${
-                        operationType === "buy"
-                            ? "bg-blue-500 text-white shadow-lg"
-                            : "border border-gray-400 bg-gray-100 text-gray-600"
-                    }`}
+            <div className="mb-4">
+                <label htmlFor="operationType" className="block text-gray-700 font-medium mb-2">
+                    Type d&#39;opération :
+                </label>
+                <select
+                    id="operationType"
+                    value={operationType}
+                    onChange={(e) => setOperationType(e.target.value as "buy" | "sell")}
+                    className="w-full border rounded-lg p-2"
                 >
-                    Acheter
-                </button>
-                <button
-                    onClick={() => setOperationType("sell")}
-                    className={`px-4 py-2 rounded-lg font-bold text-sm transition ${
-                        operationType === "sell"
-                            ? "bg-red-500 text-white shadow-lg"
-                            : "border border-gray-400 bg-gray-100 text-gray-600"
-                    }`}
-                >
-                    Vendre
-                </button>
+                    <option value="buy">Acheter</option>
+                    <option value="sell">Vendre</option>
+                </select>
             </div>
 
-            <input
-                type="number"
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className="border p-2 rounded-md mt-6 w-full text-center text-lg focus:ring-2 focus:ring-blue-500 transition"
-                placeholder="Saisir la quantité"
-            />
-
-            <p className="text-gray-800 text-lg font-semibold mt-6">
-                {operationType === "buy"
-                    ? `Coût estimé : ${price.toFixed(2)} ZTH`
-                    : `Revenu estimé : ${price.toFixed(2)} ZTH`}
-            </p>
+            <div className="mb-4 text-gray-700">
+                <p>
+                    <strong>Total {operationType === "buy" ? "coût" : "gain"} :</strong>{" "}
+                    {price.toFixed(2)} ZTH
+                </p>
+                <p>
+                    <strong>Votre solde actuel :</strong> {userBalance.toFixed(2)} ZTH
+                </p>
+                <p>
+                    <strong>Quantité disponible :</strong> {availableQuantity} tokens
+                </p>
+                <p>
+                    <strong>Liquidité :</strong> {liquidity.toFixed(2)} ZTH
+                </p>
+            </div>
 
             <button
                 onClick={handleTrade}
-                className={`w-full mt-6 px-4 py-2 rounded-lg text-lg font-bold transition ${
-                    operationType === "buy"
-                        ? "bg-blue-500 text-white hover:bg-blue-600 shadow-md"
-                        : "bg-red-500 text-white hover:bg-red-600 shadow-md"
+                disabled={quantity <= 0 || (operationType === "buy" && price > userBalance) || (operationType === "sell" && quantity > availableQuantity)}
+                className={`w-full py-2 px-4 rounded-lg text-white font-medium ${
+                    quantity <= 0 ||
+                    (operationType === "buy" && price > userBalance) ||
+                    (operationType === "sell" && quantity > availableQuantity)
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-indigo-600 hover:bg-indigo-700"
                 }`}
             >
-                {operationType === "buy" ? "Confirmer l'achat" : "Confirmer la vente"}
+                {operationType === "buy" ? "Acheter" : "Vendre"}
             </button>
+
+            {message && (
+                <div
+                    className={`mt-4 p-4 rounded-lg text-white ${
+                        message.toLowerCase().includes("erreur") ? "bg-red-500" : "bg-green-500"
+                    }`}
+                >
+                    {message}
+                </div>
+            )}
         </div>
     );
 }
