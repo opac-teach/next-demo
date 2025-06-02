@@ -20,11 +20,11 @@ function createAccessToken(password: string) {
     return token;
 };
 
-export async function getUser(): Promise<User> {
+export async function getUser(): Promise<User | null> {
     const cookieStore = await cookies();
     const session = cookieStore.get('session');
     if (!session){
-        throw new Error("Something went wrong");
+        return null;
     }
     const id: string | undefined = jwt.decode(session?.value)?.toString();
     if (id == null) {

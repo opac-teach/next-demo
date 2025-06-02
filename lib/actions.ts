@@ -5,12 +5,6 @@ import {revalidatePath} from "next/cache";
 import path from "path";
 import {promises as fs} from "fs";
 import {Memecoin} from "@/lib/Memecoin";
-import {cookies} from "next/headers";
-import jwt, {Secret} from "jsonwebtoken";
-import {redirect} from "next/navigation";
-import prisma from "@/lib/prisma";
-import {User} from "@/app/generated/prisma";
-import bcrypt from "bcrypt";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
