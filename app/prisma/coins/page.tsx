@@ -3,9 +3,25 @@ import {Memecoin, User} from "@/app/generated/prisma";
 import Link from "next/link";
 import {getUser} from "@/lib/userUtils";
 import {CoinItem} from "@/components/prisma/CoinItem";
+import {Suspense} from "react";
+import {CoinItemSkeleton} from "@/components/prisma/CoinItemSkeleton";
+
+function MemecoinsLoading() {
+    return (
+        <>
+            <CoinItemSkeleton />
+            <CoinItemSkeleton />
+            <CoinItemSkeleton />
+            <CoinItemSkeleton />
+            <CoinItemSkeleton />
+            <CoinItemSkeleton />
+            <CoinItemSkeleton />
+        </>
+
+    );
+}
 
 export default async function Memecoins() {
-    const memecoins = await getMemecoins();
     const user: User | null = await getUser();
 
     return (
@@ -18,9 +34,20 @@ export default async function Memecoins() {
                   data-test="create-memecoin">
                 Create memecoin
             </Link>
+            <Suspense fallback={<MemecoinsLoading />}>
+                <MemecoinsContent user={user} />
+            </Suspense>
+        </div>
+    );
+}
+
+async function MemecoinsContent({ user }: { user: User | null }) {
+    const memecoins = await getMemecoins();
+    return (
+        <>
             {memecoins.map((memecoin: Memecoin) => (
                 <CoinItem memecoin={memecoin} user={user} key={memecoin.id}/>
             ))}
-        </div>
+        </>
     );
 }
