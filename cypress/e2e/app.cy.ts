@@ -70,6 +70,22 @@ describe("memecoin", () => {
     });
 });
 
+describe("memecoin-delete", () => {
+    it("should delete memecoin", () => {
+        cy.visit("http://localhost:3000/login");
+        cy.get("input[name='email']").type("olivier@test.com");
+        cy.get("input[name='password']").type("password");
+        cy.get("form > button").click();
+        cy.wait(1000);
+        cy.get("div[data-test='memecoins-list'] > a:last-child").then(($a) => {
+            const href = $a.attr("href");
+            cy.wrap($a).click({multiple: true});
+            cy.url().should("include", href);
+        });
+        cy.get("button[data-test='delete-memecoin']").click();
+    });
+});
+
 /*describe("posts", () => {
   it("should create post", () => {
     cy.visit("http://localhost:3000/posts");

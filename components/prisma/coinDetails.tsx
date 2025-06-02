@@ -75,6 +75,7 @@ export default function CoinDetails({memecoin, user}: { memecoin: Memecoin, user
 
                     {memecoin.author.id === user?.id && (
                         <Button
+                            data-test="delete-memecoin"
                             variant="destructive"
                             className="px-6 py-3 shadow-sm"
                             onClick={() => deleteMemecoin(memecoin.id)}
