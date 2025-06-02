@@ -5,11 +5,16 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+// import { isAuth } from "@/services/auth";
 import Link from "next/link";
 
+// const isValid = isAuth()
+
 const links = [
+  { href: "/memecoins", label: "Memecoins" },
   { href: "/demos", label: "Demos" },
   { href: "/posts", label: "Posts" },
+  // { href: "/login", label: "Account" },
 ];
 
 export default function Header() {
@@ -36,6 +41,10 @@ export default function Header() {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
+
+        <Link href="/login">
+          Account
+        </Link>
       </div>
     </header>
   );
