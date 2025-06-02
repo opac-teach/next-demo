@@ -2,13 +2,16 @@ import { fetchMemecoin } from '@/lib/api';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-type Props = { params: { id: string } };
+type Props = {
+  params: Promise<{ id: string }>;
+};
 
 export const dynamic = 'force-static';
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: Props) {
-  const mc = await fetchMemecoin(params.id).catch(() => null);
+  const { id } = await params;
+  const mc = await fetchMemecoin(id).catch(() => null);
   if (!mc) return {};
 
   return {
@@ -22,7 +25,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function MemecoinPage({ params }: Props) {
-  const mc = await fetchMemecoin(params.id).catch(() => null);
+  const { id } = await params;
+  const mc = await fetchMemecoin(id).catch(() => null);
   if (!mc) notFound();
 
   return (

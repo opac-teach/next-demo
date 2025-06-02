@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -8,9 +8,10 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    setError(null);
+  const submit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      setError(null);
 
     const res = await fetch('/api/login', {
       method: 'POST',
@@ -18,13 +19,15 @@ export default function LoginPage() {
       headers: { 'content-type': 'application/json' },
     });
 
-    if (res.ok) {
-      router.push('/memecoins');
-      router.refresh();
-    } else {
-      setError('Mot de passe incorrect');
-    }
-  }
+      if (res.ok) {
+        router.push('/memecoins');
+        router.refresh();
+      } else {
+        setError('Mot de passe incorrect');
+      }
+    },
+    [password, router]
+  );
 
   useEffect(() => {
     fetch('/api/me', { cache: 'no-store' })
@@ -33,6 +36,8 @@ export default function LoginPage() {
         if (data?.authenticated) {
           router.replace('/memecoins');
         }
+      })
+      .catch(() => {
       });
   }, [router]);
 
@@ -71,7 +76,6 @@ export default function LoginPage() {
             Se connecter
           </button>
         </form>
-
       </div>
     </div>
   );

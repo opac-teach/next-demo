@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import MemecoinList from "../../components/MemeCoinList";
 import { getUser } from "@/lib/auth";
-import MemecoinCreateFormWrapper from "../../components/MemecoinCreateFormWrapper";
 
+import MemecoinCreateForm from '@/components/MemecoinCreateForm';
 
 export const revalidate = 60;
 
@@ -21,7 +21,7 @@ export default async function MemecoinsPage() {
       {user && (
         <section>
           <h2 className="text-xl font-semibold mb-2">Créer un memecoin</h2>
-          <MemecoinCreateFormWrapper />
+          <MemecoinCreateForm />
         </section>
       )}
     </div>
