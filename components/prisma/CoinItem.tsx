@@ -12,7 +12,9 @@ export function CoinItem({memecoin, user}: { memecoin: Memecoin, user: User | nu
     return (
 
         <Link href={`/prisma/coins/${memecoin.id}`}
-              className="group/item flex items-center justify-between gap-4 w-10/12 mb-4 data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground rounded-md p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4">
+              className={(memecoin.author.id === user.id ? 'bg-gray-100 ' : '')
+                  + 'group/item flex items-center justify-between gap-4 w-10/12 mb-4 data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*=\'text-\'])]:text-muted-foreground rounded-md p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*=\'size-\'])]:size-4'}
+        >
             <ImageWithFallback
                 src={memecoin.logoUrl}
                 alt={memecoin.name}
@@ -28,7 +30,7 @@ export function CoinItem({memecoin, user}: { memecoin: Memecoin, user: User | nu
             </div>
             <span data-test="memecoin-author"
                   className="flex gap-1 text-sm text-gray-600 ml-2 w-32"><UserIcon
-                className="w-6 h-6 text-green-500"/> {memecoin.author.name}</span>
+                className="w-6 h-6 text-green-500"/> {memecoin.author.id === user.id ? <b>Me</b> : memecoin.author.name}</span>
             {memecoin.author.id === user.id ?
                 <Button className="group/edit invisible group-hover/item:visible ml-4" variant="destructive"
                         size="icon"
