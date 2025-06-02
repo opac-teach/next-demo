@@ -50,6 +50,9 @@ import CreateMemecoin from "@/components/memecoins/CreateMemecoin";
 import MemecoinsList from "../../components/memecoins/MemecoinList"
 import { Metadata} from "next";
 import { Skeleton } from "@/components/ui/skeleton";
+import MemecoinListRSC from "@/components/memecoins/MemecoinListRSC";
+import MemecoinsListSSG from "@/components/memecoins/MemecoinListSSG";
+import MemecoinsListISR from "@/components/memecoins/MemecoinListISR";
 
 export const metadata: Metadata = {
   title: "Memecoins ",
@@ -66,8 +69,20 @@ const MemecoinsPage = async () => {
       {
         initialMemecoins ? (
             <div>
+              {/* CSR */}
                 <MemecoinsList memecoins={initialMemecoins}/>
                 <CreateMemecoin />
+
+                <div>
+                  <span className="text-xl font-bold">Memecoin version rsc</span>
+                  <MemecoinListRSC />
+                </div>
+                <div>
+                  <MemecoinsListSSG/>
+                </div>
+                <div>
+                    <MemecoinsListISR/>
+                </div>
             </div>
         ) : (
             <Skeleton/>

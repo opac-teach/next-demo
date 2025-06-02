@@ -23,6 +23,10 @@ const MemecoinList: React.FC<MemecoinProps> = ({memecoins}) => {
             if(newData){
                 setRefreshedMemecoins(newData);
             }
+
+            // recup les favoris
+            const fav = localStorage.getItem("favorites");
+            if (fav) setFavorites(JSON.parse(fav));
         } catch (e) {
             console.error("Erreur lors du refresh des memecoins", e);
         }
@@ -36,12 +40,12 @@ const MemecoinList: React.FC<MemecoinProps> = ({memecoins}) => {
     }, []);
 
     const router = useRouter();
-
+    const [favorites, setFavorites] = useState<Memecoin[]>([]);
     return (
        <div>
         { 
             memecoins ? (
-                <ul className="grid grid-cols-4 gap-4 list-none">
+                <ul className="grid grid-cols-3 gap-4 list-none">
                     {refreshedMemecoins.map((memecoin) => (
                         <li key={memecoin.id} className="" onClick={()=> router.push(`/memecoins/${memecoin.id}`)}>
                             <MemecoinItem memecoin={memecoin} />
@@ -52,6 +56,22 @@ const MemecoinList: React.FC<MemecoinProps> = ({memecoins}) => {
                 <span>Loading</span>
             )
         }
+        <div className="flex flex-col">
+            <span>Vos favoris</span>
+            { 
+                favorites.length > 0 ? (
+                    <ul className="grid grid-cols-3 gap-4 list-none">
+                        {favorites.map((memecoin) => (
+                            <li key={memecoin.id} className="" onClick={()=> router.push(`/memecoins/${memecoin.id}`)}>
+                                <MemecoinItem memecoin={memecoin} />
+                            </li>
+                        ))}
+                        </ul>
+                ) : (
+                    <span>Vous n avez pas de favoris</span>
+                )
+            }
+        </div>
        </div>
 
 )

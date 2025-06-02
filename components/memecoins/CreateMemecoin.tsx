@@ -1,6 +1,6 @@
 "use client";
 
-import { postMemecoin } from "@/services/api/memecoins";
+import { postMemecoin } from "@/services/api/postMemecoins";
 import { Inputs } from "@/services/interfaces";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form"
@@ -70,7 +70,7 @@ const CreateMemecoin: React.FC = () => {
                     <input placeholder="Url du logo" {...register("logoUrl",{minLength:0,maxLength: 200, pattern: /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/ })} className="border p-1 border-black rounded-sm"/>
                     {errors.logoUrl && <span className="bg-red-200 border border-red-400 p-2 text-red-800 rounded-lg">L url n ests pas valide</span>}
 
-                    <input type="submit" className="rounded-lg shadow-md bg-white "/>
+                    <input type="submit" className="rounded-lg shadow-md hover:shadow-lg bg-white "/>
                 </form>
 
             </div>

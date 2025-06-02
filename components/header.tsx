@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { getCurrentUser } from "@/services/api/user";
 import Link from "next/link";
+// import { Badge } from 'antd';
+
 
 import { UserOutlined,LoginOutlined } from '@ant-design/icons';
 
@@ -47,8 +49,15 @@ export default async function Header() {
 
          {
           currentUser ? (
-            <Link href="/login" className="text-xl font-light">
-              <UserOutlined className="bg-gray-200 p-2 rounded-3xl"/>
+            <Link href="/login" className="relative inline-block" title="Mon profil">
+              <div className="relative inline-block">
+                <UserOutlined className="bg-gray-200 p-2 rounded-3xl text-xl" />
+                {/* <Badge
+                  status="success"
+                  className="absolute"
+                  style={{ top: 0, right: 0, zIndex: 10, pointerEvents: 'none' }}
+                /> */}
+              </div>
             </Link>
           ) : (
             <Link href="/login" className="text-xl font-light">
@@ -56,6 +65,7 @@ export default async function Header() {
             </Link>
           )
         }
+
 
       </div>
     </header>
