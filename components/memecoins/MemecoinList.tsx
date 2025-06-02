@@ -16,6 +16,7 @@ const MemecoinList: React.FC<MemecoinProps> = ({memecoins}) => {
     const [refreshedMemecoins, setRefreshedMemecoins] = useState<Memecoin[]>(memecoins)
 
     useEffect(() => {
+
         const refreshData = async () => {
         try {
             const newData = await fetchMemecoins();

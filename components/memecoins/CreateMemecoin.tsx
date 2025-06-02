@@ -3,9 +3,7 @@
 import { postMemecoin } from "@/services/api/memecoins";
 import { Inputs } from "@/services/interfaces";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form"
-
 
 
 const CreateMemecoin: React.FC = () => {
@@ -18,31 +16,26 @@ const CreateMemecoin: React.FC = () => {
         formState: { errors },
     } = useForm<Inputs>()
 
-    const [isValid, setIsValid] = useState(true);
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
 
         if (data.name == null || data.name.length > 16 || data.name.length < 4){
             alert("Le nom n'est pas valide")
-            setIsValid(false);
             return;
         }
 
         if (data.symbol == null || data.symbol.length < 2 || data.symbol.length > 4){
             alert("Le symbole n'est pas valide")
-            setIsValid(false);
             return;
         }
 
         if (data.description.length > 1000){
             alert("La description n'est pas valide")
-            setIsValid(false);
             return;
         }
 
         if (data.logoUrl.length > 200){
             alert("L'url n'est pas valide")
-            setIsValid(false);
             return;
         }
 

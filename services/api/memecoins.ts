@@ -28,7 +28,7 @@ export const postMemecoin =  async (data:Inputs) => {
     }
     catch (e) {
         console.error(e)
-        throw new Error("Erreur lors de la ccréation du memecoin")
+        throw new Error("Erreur lors de la création du memecoin")
     }
 }
 
