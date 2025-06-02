@@ -1,7 +1,6 @@
 import {getMemecoins} from "@/lib/coinUtils";
 import {Memecoin, User} from "@/app/generated/prisma";
 import Link from "next/link";
-import {cookies} from "next/headers";
 import {getUser} from "@/lib/userUtils";
 import {CoinItem} from "@/components/prisma/CoinItem";
 
