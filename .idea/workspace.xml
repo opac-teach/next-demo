@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/prisma/coinDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/prisma/coinDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cypress/e2e/app.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/app.cy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/coinUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/coinUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="memecoins" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,7 +51,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "cypress-e2e-test",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "last_opened_file_path": "/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo",
@@ -218,7 +219,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748859659491</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary=":white_check_mark: Enhance Cypress E2E tests with `data-test` attributes&#10;&#10;Updated Cypress tests with new `data-test` attributes for improved element targeting and validation of additional details, including description and author information.">
+      <option name="closed" value="true" />
+      <created>1748861532128</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748861532128</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update workspace configuration to reflect branch name change and adjust tracked files">
+      <option name="closed" value="true" />
+      <created>1748861538025</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748861538025</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,12 +258,14 @@
     <MESSAGE value=":package: Fix package-lock.json duplications for consistent dependency management&#10;&#10;This resolves duplication issues in `package-lock.json`, where several dependencies such as `bcrypt`, `lodash`, and `pretty-bytes` were present multiple times. The changes ensure that the lock file maintains a single entry per dependency, improving clarity and avoiding potential conflicts during package resolution." />
     <MESSAGE value="Update IDE configuration and remove outdated comments&#10;&#10;Refreshed `.idea/workspace.xml` with updated configs and removed unnecessary inline comments. The changes improve clarity and streamline the IDE setup for consistent development." />
     <MESSAGE value="Update IDE configuration and streamline workspace settings" />
-    <MESSAGE value=":recycle: Refactor `CoinItem` to use `ImageWithFallback` component for improved logo rendering and add fallback support. Introduce reusable `ImageWithFallback` component." />
     <MESSAGE value=":recycle: Refactor `CoinItem` styles and improve `deleteMemecoin` handler.&#10;&#10;Updated styling for better hover, focus, and active states in `CoinItem`. Refactored `deleteMemecoin` to use a `.then()` promise chain. Simplified JSX structure for improved readability and consistency." />
     <MESSAGE value="Update `.idea/workspace.xml` to refine project settings and streamline configuration" />
     <MESSAGE value=":lipstick: Refactor `CoinDetails` layout for improved responsiveness and UI consistency. Enhanced logo rendering with `ImageWithFallback` and localized button labels." />
     <MESSAGE value=":lipstick: Update `CoinItem` layout and styles for improved clarity and usability. Enhanced author and symbol rendering with icons and refined logo styling." />
     <MESSAGE value="Update workspace configuration to reflect branch name change and adjust tracked files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration to reflect branch name change and adjust tracked files." />
+    <MESSAGE value=":recycle: Refactor `CoinItem` to use `ImageWithFallback` component for improved logo rendering and add fallback support. Introduce reusable `ImageWithFallback` component." />
+    <MESSAGE value=":white_check_mark: Enhance Cypress E2E tests with `data-test` attributes&#10;&#10;Updated Cypress tests with new `data-test` attributes for improved element targeting and validation of additional details, including description and author information." />
+    <MESSAGE value="Update workspace configuration to reflect branch name change and adjust tracked files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration to reflect branch name change and adjust tracked files" />
   </component>
 </project>
