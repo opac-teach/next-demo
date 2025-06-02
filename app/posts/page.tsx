@@ -14,7 +14,7 @@ export default async function Page() {
   return (
     <Row>
       <div className="flex flex-col gap-4">
-        <ul>
+        <ul data-test="posts">
           {posts.map((post) => (
             <li key={post.id}>
               <Link href={`/posts/${post.id}`}>{post.title}</Link>
