@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, { params }: { params: { symbol: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ symbol: string }> }) {
     try {
         const memecoin = await prisma.memecoin.findFirst({
-            where: { symbol: params.symbol },
+            where: { symbol: (await params).symbol },
         });
 
         if (!memecoin) {
