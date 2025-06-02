@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60166835-4b40-4dec-a4fd-07662667d8af" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    <list default="true" id="60166835-4b40-4dec-a4fd-07662667d8af" name="Changes" comment="Update IDE configuration and remove outdated comments&#10;&#10;Refreshed `.idea/workspace.xml` with updated configs and removed unnecessary inline comments. The changes improve clarity and streamline the IDE setup for consistent development.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/prisma/coins/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/prisma/coins/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/prisma/CoinItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/prisma/CoinItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/app.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/app.cy.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="memecoins" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,36 +43,81 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "memecoins",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Cypress.all tests in app.cy.ts (1).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in app.cy.ts (2).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in app.cy.ts.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cypress-e2e-test&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.Next.js: server-side">
+  <component name="RunManager" selected="Cypress.all tests in app.cy.ts (2)">
+    <configuration name="all tests in app.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/app.cy.ts" />
+      <test-names>
+        <test-name value="Login" />
+        <test-name value="should login" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="all tests in app.cy.ts (2)" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/app.cy.ts" />
+      <test-names>
+        <test-name value="memecoin" />
+        <test-name value="should create memecoin" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="all tests in app.cy.ts" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/app.cy.ts" />
+      <test-names>
+        <test-name value="State" />
+        <test-name value="should redirect to login" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
     </configuration>
@@ -83,6 +131,13 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cypress.all tests in app.cy.ts (2)" />
+        <item itemvalue="Cypress.all tests in app.cy.ts (1)" />
+        <item itemvalue="Cypress.all tests in app.cy.ts" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -104,6 +159,7 @@
       <updated>1747659614547</updated>
       <workItem from="1747659615671" duration="47323000" />
       <workItem from="1747820258171" duration="42129000" />
+      <workItem from="1748852008852" duration="1142000" />
     </task>
     <task id="LOCAL-00001" summary=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations.">
       <option name="closed" value="true" />
@@ -113,7 +169,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748005637284</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=":package: Fix package-lock.json duplications for consistent dependency management&#10;&#10;This resolves duplication issues in `package-lock.json`, where several dependencies such as `bcrypt`, `lodash`, and `pretty-bytes` were present multiple times. The changes ensure that the lock file maintains a single entry per dependency, improving clarity and avoiding potential conflicts during package resolution.">
+      <option name="closed" value="true" />
+      <created>1748849472618</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748849472618</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update IDE configuration and remove outdated comments&#10;&#10;Refreshed `.idea/workspace.xml` with updated configs and removed unnecessary inline comments. The changes improve clarity and streamline the IDE setup for consistent development.">
+      <option name="closed" value="true" />
+      <created>1748849489711</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748849489711</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +205,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add generated Prisma files and IDE configuration to repo&#10;&#10;Generated Prisma client files were added for use in the app. IntelliJ IDEA-specific configuration and ignored files were also included, ensuring proper setup for local development." />
     <MESSAGE value=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations." />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: Implement Memecoin feature with CRUD operations&#10;&#10;Added full functionality for Memecoin management, including creation, listing, and deletion. Introduced Prisma for database interactions and integrated middleware for route protection. Enhanced UI with forms and error handling, supporting authentication and user-specific operations." />
+    <MESSAGE value=":package: Fix package-lock.json duplications for consistent dependency management&#10;&#10;This resolves duplication issues in `package-lock.json`, where several dependencies such as `bcrypt`, `lodash`, and `pretty-bytes` were present multiple times. The changes ensure that the lock file maintains a single entry per dependency, improving clarity and avoiding potential conflicts during package resolution." />
+    <MESSAGE value="Update IDE configuration and remove outdated comments&#10;&#10;Refreshed `.idea/workspace.xml` with updated configs and removed unnecessary inline comments. The changes improve clarity and streamline the IDE setup for consistent development." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update IDE configuration and remove outdated comments&#10;&#10;Refreshed `.idea/workspace.xml` with updated configs and removed unnecessary inline comments. The changes improve clarity and streamline the IDE setup for consistent development." />
   </component>
 </project>
