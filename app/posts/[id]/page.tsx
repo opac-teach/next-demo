@@ -6,7 +6,6 @@ import { Row } from "@/components/row";
 
 import { getPost } from "@/lib/actions";
 
-// Surround Post Component with Suspense to show a loading state
 export default async function Page({
   params,
 }: {
@@ -21,7 +20,6 @@ export default async function Page({
   );
 }
 
-// The component that fetches and renders the post
 async function Post({ id }: { id: string }) {
   const post = await getPost(id);
 
@@ -43,7 +41,6 @@ async function Post({ id }: { id: string }) {
   );
 }
 
-// Metadata for SEO
 export async function generateMetadata({
   params,
 }: {

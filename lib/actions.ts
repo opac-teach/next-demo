@@ -1,5 +1,7 @@
 "use server";
+"use client";
 
+import { useEffect, useState } from "react";
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import path from "path";
@@ -14,19 +16,29 @@ export async function getPrivateSecret() {
 }
 
 export async function getDate() {
-  // no-store here tells next that the response should not be cached and called on every request
-  // Without it, it is fetched once at build time and never again
   const data = await fetch(`${API_URL}/api/time`, { cache: "no-store" });
   const { time } = await data.json();
   const date = new Date(time);
   await delay(1000);
   return date;
-}
+};
 
 const posts = [
   { id: 1, title: "First Post", content: "This is the first post" },
   { id: 2, title: "Second Post", content: "This is the second post" },
 ];
+
+export function useAuth() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/me")
+      .then(res => setIsAuth(res.ok))
+      .catch(() => setIsAuth(false));
+  }, []);
+
+  return isAuth;
+}
 
 export async function createPost(formData: FormData) {
   const title = formData.get("title") as string;
@@ -40,7 +52,7 @@ export async function getPosts() {
   return posts;
 }
 
-// Cache the action to avoid re-fetching the same post in same request
+
 export const getPost = cache(async (id: string) => {
   return posts.find((post) => post.id === parseInt(id));
 });
