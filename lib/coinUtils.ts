@@ -59,5 +59,5 @@ export async function deleteMemecoin(id: number) {
     if (!response.ok) {
         throw new Error("Failed to fetch memecoin");
     }
-    redirect("/prisma/coins");
+    revalidatePath("/prisma/coins");
 }
