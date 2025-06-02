@@ -10,6 +10,7 @@ import Link from "next/link";
 const links = [
   { href: "/demos", label: "Demos" },
   { href: "/posts", label: "Posts" },
+  { href: "/memecoins", label: "Memecoins" },
 ];
 
 export default function Header() {
