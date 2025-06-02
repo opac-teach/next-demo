@@ -12,15 +12,17 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ isLoggedIn: false }, { status: 401 });
         }
 
-        // Vérifier le JWT
+        // Vérifier le JWT et récupérer les données du payload
         if (!SECRET_KEY) {
             throw new Error("JWT_SECRET n'est pas défini");
         }
-        jwt.verify(token, SECRET_KEY);
 
-        // Si le token est valide
-        return NextResponse.json({ isLoggedIn: true });
-    } catch  {
+        const decoded = jwt.verify(token, SECRET_KEY) as { userId: string }; // Décoder le token
+        const userId = decoded.userId; // Extraire l'ID utilisateur
+
+        // Si le token est valide, retourner l'ID utilisateur
+        return NextResponse.json({ isLoggedIn: true, userId });
+    } catch {
         // Si une erreur s'est produite ou le token est invalide
         return NextResponse.json({ isLoggedIn: false }, { status: 401 });
     }
