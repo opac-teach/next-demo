@@ -17,12 +17,12 @@ export function CoinItem({memecoin, user}: { memecoin: Memecoin, user: User | nu
                     :
                     <div className="flex items-center justify-center rounded-4xl size-12 aspect-square bg-gray-200"><span>{memecoin.name.charAt(0).toUpperCase()}</span></div>
                 }
-                <div className="flex flex-col items-start justify-center w-96">
-                    <div className="text-lg font-semibold w-full">{memecoin.name}</div>
+                <div data-test="memecoin" className="flex flex-col items-start justify-center w-96">
+                    <div data-test="memecoin-name" className="text-lg font-semibold w-full">{memecoin.name}</div>
 
-                    <div className="text-sm w-full">{memecoin.symbol}</div>
+                    <div data-test="memecoin-symbol" className="text-sm w-full">{memecoin.symbol}</div>
                 </div>
-                <span className="text-sm text-gray-600 ml-2 w-32">by {memecoin.author.name}</span>
+                <span data-test="memecoin-author" className="text-sm text-gray-600 ml-2 w-32">by {memecoin.author.name}</span>
                 {memecoin.author.id === user.id ?
                     <Button className="group/edit invisible group-hover/item:visible ml-4" variant="destructive" size="icon"
                             onClick={() => deleteMemecoin(memecoin.id)}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="size-6">
