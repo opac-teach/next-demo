@@ -4,19 +4,21 @@ import {Memecoin, User} from "@/app/generated/prisma";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {deleteMemecoin} from "@/lib/coinUtils";
+import {ImageWithFallback} from "@/components/prisma/ImageWithFallbackProps";
 
 export function CoinItem({memecoin, user}: { memecoin: Memecoin, user: User | null }) {
 
     return (
 
             <Link href={`/prisma/coins/${memecoin.id}`}
-                  className="group/item flex items-center justify-between gap-4 max-w-xl w-full mb-4 data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground rounded-md p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4">
-
-                {memecoin.logoUrl ?
-                    <img src={memecoin.logoUrl} alt={memecoin.name} width={50} height={50} className="rounded-4xl"/>
-                    :
-                    <div className="flex items-center justify-center rounded-4xl size-12 aspect-square bg-gray-200"><span>{memecoin.name.charAt(0).toUpperCase()}</span></div>
-                }
+                  className="flex items-center justify-between gap-4 w-full mb-4 data-[active=true]:focus:bg-accent data-[active=true]:hover:bg-accent data-[active=true]:bg-accent/50 data-[active=true]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground rounded-md p-2 transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4">
+                <ImageWithFallback
+                    src={memecoin.logoUrl}
+                    alt={memecoin.name}
+                    width={50}
+                    height={50}
+                    className="rounded-4xl size-12 aspect-square"
+                />
                 <div data-test="memecoin" className="flex flex-col items-start justify-center w-96">
                     <div data-test="memecoin-name" className="text-lg font-semibold w-full">{memecoin.name}</div>
 
