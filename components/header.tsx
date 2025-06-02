@@ -60,14 +60,24 @@ export default function Header() {
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
-            {session?.isAuthenticated ?? (<Button
-              variant="outline"
-              size="sm"
-              className="text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 cursor-pointer"
-              onClick={() => handleLogout()}
-            >
-              Déconnexion
-            </Button>)}
+            {session?.isAuthenticated ? (
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 cursor-pointer"
+                onClick={() => handleLogout()}
+              >
+                Déconnexion
+              </Button>
+            ) : (
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link href="/login" passHref>
+                    Connexion
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
