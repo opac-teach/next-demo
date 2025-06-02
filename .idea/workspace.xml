@@ -7,7 +7,7 @@
     <list default="true" id="60166835-4b40-4dec-a4fd-07662667d8af" name="Changes" comment=":recycle: Refactor `CoinItem` to use `ImageWithFallback` component for improved logo rendering and add fallback support. Introduce reusable `ImageWithFallback` component.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/prisma/CoinItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/prisma/CoinItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/coinUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/coinUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/prisma/coinDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/prisma/coinDetails.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +50,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "memecoins",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "last_opened_file_path": "/Users/olivierfalahi/Documents/EFREI/ReactJS/next-demo",
