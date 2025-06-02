@@ -2,12 +2,12 @@
 
 import NotificationError from "@/components/notification/NotificationError";
 import { fetchMemecoins } from '@/lib/memecoin';
-import { Memecoin } from "@/types/memecoin";
+import { MemecoinType } from "@/types/memecoin";
 import { useEffect, useState } from 'react';
 import MemecoinCard from "./MemecoinCard";
 
 export default function MemecoinList() {
-    const [memecoins, setMemecoins] = useState<Memecoin[]>([]);
+    const [memecoins, setMemecoins] = useState<MemecoinType[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     async function refreshMemecoin() {

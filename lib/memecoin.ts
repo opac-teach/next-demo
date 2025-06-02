@@ -1,8 +1,8 @@
-import { Memecoin } from "@/types/memecoin";
+import { MemecoinType } from "@/types/memecoin";
 import { checkMemecoin } from "@/lib//validators/memecoin";
-import { MemecoinFieldError } from "@/types/memecoinFieldError";
+import { MemecoinFieldErrorType } from "@/types/memecoinFieldError";
 
-export async function fetchMemecoins(): Promise<Memecoin[]> {
+export async function fetchMemecoins(): Promise<MemecoinType[]> {
     const res = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins');
     if (!res.ok) {
         throw new Error(res.statusText || 'Failed to fetch memecoins');
@@ -10,7 +10,7 @@ export async function fetchMemecoins(): Promise<Memecoin[]> {
     return await res.json();
 }
 
-export async function fetchMemecoin(id: string): Promise<Memecoin> {
+export async function fetchMemecoin(id: string): Promise<MemecoinType> {
     const response = await fetch(`https://nuxt-demo-blush.vercel.app/api/get-memecoins/${id}`);
     return response.json();
 }
@@ -21,7 +21,7 @@ export async function createMemecoin(prevState: any, formData: FormData): Promis
     const description = formData.get("description") as string;
     const logoUrl = formData.get("logoUrl") as string;
 
-    const errors: MemecoinFieldError[] = checkMemecoin(name, symbol, description, logoUrl);
+    const errors: MemecoinFieldErrorType[] = checkMemecoin(name, symbol, description, logoUrl);
 
     if (errors.length > 0) {
         return { errors };

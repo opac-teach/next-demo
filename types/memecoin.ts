@@ -1,4 +1,4 @@
-export interface Memecoin {
+export interface MemecoinType {
     id: string;
     name: string;
     symbol: string;

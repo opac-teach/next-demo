@@ -1,12 +1,12 @@
-import { MemecoinFieldError } from "@/types/memecoinFieldError";
+import { MemecoinFieldErrorType } from "@/types/memecoinFieldError";
 
 export function checkMemecoin(
     name: string,
     symbol: string,
     description: string,
     logoUrl: string
-): MemecoinFieldError[] {
-    const errors: MemecoinFieldError[] = [];
+): MemecoinFieldErrorType[] {
+    const errors: MemecoinFieldErrorType[] = [];
 
     if (!name || name.length < 4 || name.length > 16) {
         errors.push({

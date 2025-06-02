@@ -1,6 +1,6 @@
-import { Memecoin } from '@/types/memecoin';
+import { MemecoinType } from '@/types/memecoin';
 
-export default function MemecoinCard({ memecoin }: { memecoin: Memecoin }) {
+export default function MemecoinCard({ memecoin }: { memecoin: MemecoinType }) {
     return (
         <a href={`/memecoins/${memecoin.id}`} className="block border border-gray-300 m-4 p-4 no-underline text-current">
             <img src={memecoin.logoUrl} alt={`${memecoin.name} logo`} style={{ width: '50px' }} />

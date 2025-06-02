@@ -1,5 +1,5 @@
 import { createMemecoin } from "@/lib/memecoin";
-import type { MemecoinFieldError } from "@/types/memecoinFieldError";
+import type { MemecoinFieldErrorType } from "@/types/memecoinFieldError";
 import { Label } from "@radix-ui/react-label";
 import { useActionState } from "react";
 import { Button } from "../ui/button";
@@ -39,7 +39,7 @@ export default function MemecoinForm({ onSuccess }: { onSuccess: () => void }) {
     );
 }
 
-function LabelError({ field, state }: { field: string; state: { errors?: MemecoinFieldError[] } | null }) {
+function LabelError({ field, state }: { field: string; state: { errors?: MemecoinFieldErrorType[] } | null }) {
     const error = state?.errors?.find((err) => err.field === field);
     if (!error) return null;
     return (
