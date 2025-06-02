@@ -13,11 +13,12 @@ export async function middleware(req: NextRequest) {
     const cookieStore = await cookies();
     const token = cookieStore.get('access_token')?.value;
 
+    const isValid = token && (await verifyJWT(token));
+
     if (publicRoutes.includes(pathname)) {
         return NextResponse.next();
     }
 
-    const isValid = token && (await verifyJWT(token));
 
     if (!isValid) {
         return NextResponse.redirect(new URL('/login', req.url))

@@ -43,10 +43,10 @@ const Login: React.FC = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-100 rounded-lg p-6 flex flex-col align-center gap-4 w-lg shadow-md">
 
                     <input placeholder="Pseudo" {...register("pseudo", { required: true, minLength:4, maxLength: 25 })} className="border p-1 border-black rounded-sm "/>
-                    {errors.pseudo && <span>{errors.pseudo?.message}</span>}
+                    {errors.pseudo && <span>Le pseudo doit être entre 4 et 25 caractères</span>}
 
                     <input placeholder="password" type="password" {...register("password", { required: true, minLength:6, maxLength: 40, })} className="border p-1 border-black rounded-sm"/>
-                    {errors.password && <span>{errors.password?.message}</span>}
+                    {errors.password && <span>Le mot de passe doit être entre 6 et 40 caractères</span>}
 
                     <input type="submit" className="rounded-lg shadow-md bg-white "/>
                 </form>
