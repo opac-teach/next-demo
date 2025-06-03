@@ -14,7 +14,7 @@ async function getMemecoins(): Promise<Memecoin[]> {
 	try {
 		await new Promise(resolve => setTimeout(resolve, 2000));
 
-		const response = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins', {
+		const response = await fetch('http://localhost:3000/api/get-memecoins', {
 			cache: 'no-store'
 		});
 

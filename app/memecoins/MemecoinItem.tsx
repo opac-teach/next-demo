@@ -36,6 +36,7 @@ export default function MemecoinItem({ memecoin }: MemecoinItemProps) {
               <div>
                 <h3 className="font-bold text-lg">{memecoin.name}</h3>
                 <p className="text-gray-600 font-mono">${memecoin.symbol}</p>
+                <p className="text-gray-600 font-mono">{memecoin.price} ZTH</p>
               </div>
             </div>
             

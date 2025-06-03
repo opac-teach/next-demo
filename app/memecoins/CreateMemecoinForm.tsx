@@ -1,143 +1,154 @@
 'use client';
 
-import { useState, useEffect, useActionState } from 'react';
-import { useFormState } from 'react-dom';
-import { useFormStatus } from 'react-dom';
-import { createMemecoin, FormState } from './actions';
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className={`w-full py-2 px-4 rounded-md text-white font-medium ${
-        pending ? 'bg-blue-400' : 'bg-blue-500 hover:bg-blue-600'
-      } transition-colors`}
-    >
-      {pending ? 'Création en cours...' : 'Créer le memecoin'}
-    </button>
-  );
-}
-
-const initialState: FormState = {
-  errors: {},
-  success: false,
-  message: '',
-};
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function CreateMemecoinForm() {
-  const [state, formAction] = useActionState(createMemecoin, initialState);
-  const [resetKey, setResetKey] = useState(0);
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: '',
+    symbol: '',
+    owner: '',
+    description: '',
+    logoUrl: ''
+  });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (state.success) {
-      const timer = setTimeout(() => {
-        setResetKey(prev => prev + 1);
-      }, 3000);
-      
-      return () => clearTimeout(timer);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/create-memecoin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Erreur lors de la création du memecoin');
+      }
+
+      setFormData({
+        name: '',
+        symbol: '',
+        owner: '',
+        description: '',
+        logoUrl: ''
+      });
+
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+    } finally {
+      setLoading(false);
     }
-  }, [state.success]);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
-    <div key={resetKey} className="border rounded-md p-4">
-      {state.success && (
-        <div className="mb-4 p-3 bg-green-100 border border-green-300 text-green-700 rounded-md">
-          {state.message}
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg">
+      <h2 className="text-xl font-bold mb-4">Créer un nouveau Memecoin</h2>
+      
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {error}
         </div>
       )}
 
-      {state.errors?._form && (
-        <div className="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded-md">
-          {state.errors._form.join(', ')}
-        </div>
-      )}
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          Nom
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
-      <form action={formAction} className="space-y-4">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-            Nom*
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className={`w-full px-3 py-2 border rounded-md ${state.errors?.name ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="Ex: DogeCoin"
-            required
-            minLength={4}
-            maxLength={16}
-          />
-          {state.errors?.name && (
-            <p className="mt-1 text-sm text-red-600">{state.errors.name.join(', ')}</p>
-          )}
-        </div>
+      <div>
+        <label htmlFor="symbol" className="block text-sm font-medium text-gray-700">
+          Symbole
+        </label>
+        <input
+          type="text"
+          id="symbol"
+          name="symbol"
+          value={formData.symbol}
+          onChange={handleChange}
+          required
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
-        <div>
-          <label htmlFor="symbol" className="block text-sm font-medium text-gray-700 mb-1">
-            Symbole*
-          </label>
-          <input
-            type="text"
-            id="symbol"
-            name="symbol"
-            className={`w-full px-3 py-2 border rounded-md ${state.errors?.symbol ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="Ex: DOGE"
-            required
-            minLength={2}
-            maxLength={4}
-            pattern="[A-Z]+"
-            title="Le symbole doit contenir uniquement des lettres majuscules"
-          />
-          {state.errors?.symbol && (
-            <p className="mt-1 text-sm text-red-600">{state.errors.symbol.join(', ')}</p>
-          )}
-        </div>
+      <div>
+        <label htmlFor="owner" className="block text-sm font-medium text-gray-700">
+          Propriétaire
+        </label>
+        <input
+          type="text"
+          id="owner"
+          name="owner"
+          value={formData.owner}
+          onChange={handleChange}
+          required
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            rows={4}
-            className={`w-full px-3 py-2 border rounded-md ${state.errors?.description ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="Description du memecoin (optionnel)"
-            maxLength={1000}
-          ></textarea>
-          {state.errors?.description && (
-            <p className="mt-1 text-sm text-red-600">{state.errors.description.join(', ')}</p>
-          )}
-          <p className="mt-1 text-xs text-gray-500">
-            Maximum 1000 caractères
-          </p>
-        </div>
+      <div>
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+          Description
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+          rows={3}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
-        <div>
-          <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700 mb-1">
-            URL du logo
-          </label>
-          <input
-            type="url"
-            id="logoUrl"
-            name="logoUrl"
-            className={`w-full px-3 py-2 border rounded-md ${state.errors?.logoUrl ? 'border-red-500' : 'border-gray-300'}`}
-            placeholder="https://exemple.com/logo.png (optionnel)"
-            maxLength={200}
-          />
-          {state.errors?.logoUrl && (
-            <p className="mt-1 text-sm text-red-600">{state.errors.logoUrl.join(', ')}</p>
-          )}
-          <p className="mt-1 text-xs text-gray-500">
-            URL valide, maximum 200 caractères
-          </p>
-        </div>
+      <div>
+        <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700">
+          URL du logo (optionnel)
+        </label>
+        <input
+          type="url"
+          id="logoUrl"
+          name="logoUrl"
+          value={formData.logoUrl}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
-        <SubmitButton />
-      </form>
-    </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+      >
+        {loading ? 'Création en cours...' : 'Créer le Memecoin'}
+      </button>
+    </form>
   );
 }

@@ -11,7 +11,7 @@ interface Memecoin {
 
 async function getMemecoins(): Promise<Memecoin[]> {
   try {
-    const response = await fetch('https://nuxt-demo-blush.vercel.app/api/get-memecoins', {
+    const response = await fetch('http://localhost:3000/api/get-memecoins', {
       next: { revalidate: 60 }
     });
 

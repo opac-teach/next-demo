@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
-import LoginForm from '@/components/LoginForm';
 import { isAuthenticated } from '@/lib/auth';
+import AuthForm from '@/components/AuthForm';
+
 
 export const metadata = {
   title: 'Connexion | Memecoins',
@@ -17,7 +18,7 @@ export default async function LoginPage() {
   return (
     <div className="max-w-md mx-auto my-12 p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Connexion</h1>
-      <LoginForm />
+      <AuthForm />
     </div>
   );
 }

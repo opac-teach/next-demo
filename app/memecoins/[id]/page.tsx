@@ -1,47 +1,24 @@
-import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import MemecoinDetails from './MemecoinDetails';
+import { getMemecoin } from '@/lib/memecoins';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 interface MemecoinPageProps {
   params: {
     id: string;
-  }
-}
-
-async function getMemecoin(id: string) {
-  try {
-    const response = await fetch(`https://nuxt-demo-blush.vercel.app/api/get-memecoins/${id}`, {
-      cache: 'no-store',
-      next: { revalidate: 0 }
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error(`Erreur lors de la récupération du memecoin: ${response.status}`);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error(`Erreur lors de la récupération du memecoin ${id}:`, error);
-    throw error;
-  }
+  };
 }
 
 export async function generateMetadata(
-  { params }: MemecoinPageProps,
+  { params }: { params: { id: string } },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const id = params.id;
-
-  const memecoin = await getMemecoin(id).catch(() => null);
+  const memecoin = await getMemecoin(params.id).catch(() => null);
 
   if (!memecoin) {
     return {
       title: 'Memecoin introuvable',
-      description: 'Le memecoin demandé n\'existe pas'
+      description: "Le memecoin demandé n'existe pas",
     };
   }
 
@@ -53,9 +30,9 @@ export async function generateMetadata(
     openGraph: {
       title: `${memecoin.name} (${memecoin.symbol})`,
       description: memecoin.description || `Découvrez les détails du memecoin ${memecoin.name}`,
-      url: `/memecoins/${id}`,
+      url: `/memecoins/${params.id}`,
       siteName: 'Plateforme de Memecoins',
-      images: memecoin.logoUrl 
+      images: memecoin.logoUrl
         ? [{ url: memecoin.logoUrl, width: 800, height: 600, alt: `Logo de ${memecoin.name}` }, ...previousImages]
         : previousImages,
       type: 'website',
@@ -65,13 +42,12 @@ export async function generateMetadata(
       title: `${memecoin.name} (${memecoin.symbol})`,
       description: memecoin.description || `Découvrez les détails du memecoin ${memecoin.name}`,
       images: memecoin.logoUrl ? [memecoin.logoUrl] : [],
-    }
+    },
   };
 }
 
 export default async function MemecoinPage({ params }: MemecoinPageProps) {
-  const { id } = params;
-  const memecoin = await getMemecoin(id).catch(() => null);
+  const memecoin = await getMemecoin(params.id).catch(() => null);
 
   if (!memecoin) {
     notFound();
@@ -79,9 +55,7 @@ export default async function MemecoinPage({ params }: MemecoinPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Suspense fallback={<div className="p-8 text-center">Chargement des détails du memecoin...</div>}>
-        <MemecoinDetails memecoin={memecoin} />
-      </Suspense>
+      <MemecoinDetails memecoin={memecoin} />
     </div>
   );
 }

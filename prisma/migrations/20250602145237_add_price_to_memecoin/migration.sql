@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Memecoin` ADD COLUMN `price` DOUBLE NOT NULL DEFAULT 0.0;

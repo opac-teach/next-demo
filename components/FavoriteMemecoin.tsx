@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface FavoriteMemecoinProps {
   defaultName?: string;
@@ -10,7 +10,6 @@ export default function FavoriteMemecoin({ defaultName = '' }: FavoriteMemecoinP
   const [favMemecoin, setFavMemecoin] = useState(defaultName);
   const [saved, setSaved] = useState(false);
 
-  // Charger la valeur depuis le localStorage au montage du composant
   useEffect(() => {
     const storedValue = localStorage.getItem('favoriteMemecoin');
     if (storedValue) {
@@ -18,22 +17,20 @@ export default function FavoriteMemecoin({ defaultName = '' }: FavoriteMemecoinP
     }
   }, []);
 
-  // Sauvegarder dans le localStorage quand la valeur change
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     if (favMemecoin.trim()) {
       localStorage.setItem('favoriteMemecoin', favMemecoin);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     }
-  };
+  }, [favMemecoin]);
 
-  // Effacer la valeur du localStorage
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     localStorage.removeItem('favoriteMemecoin');
     setFavMemecoin('');
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
-  };
+  }, []);
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -47,7 +44,6 @@ export default function FavoriteMemecoin({ defaultName = '' }: FavoriteMemecoinP
           placeholder="Entrez le nom de votre memecoin préféré"
           className="border rounded p-2"
         />
-        
         <div className="flex space-x-2">
           <button
             onClick={handleSave}
@@ -55,7 +51,6 @@ export default function FavoriteMemecoin({ defaultName = '' }: FavoriteMemecoinP
           >
             Sauvegarder
           </button>
-          
           <button
             onClick={handleClear}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
@@ -63,13 +58,11 @@ export default function FavoriteMemecoin({ defaultName = '' }: FavoriteMemecoinP
             Effacer
           </button>
         </div>
-        
         {saved && (
           <div className="text-green-600 font-semibold">
             Préférence mise à jour avec succès!
           </div>
         )}
-        
         {favMemecoin && (
           <div className="mt-4 p-4 bg-gray-100 rounded">
             <p><strong>Votre memecoin préféré:</strong> {favMemecoin}</p>

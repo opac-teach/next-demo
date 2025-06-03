@@ -6,7 +6,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { isAuthenticated } from "@/lib/auth";
+import { isAuthenticated, getAuthenticatedUser } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
 import { Button } from "@/components/ui/button";
 
@@ -18,7 +18,7 @@ const links = [
 ];
 
 export default async function Header() {
-  const authenticated = await isAuthenticated();
+  const user = await getAuthenticatedUser();
 
   return (
     <header className="bg-white border-b">
@@ -45,8 +45,13 @@ export default async function Header() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          {authenticated ? (
-            <LogoutButton />
+          {user ? (
+            <>
+              <div className="text-sm text-gray-700">
+                Bonjour, <strong>{user.username}</strong> — 💰 {user.balance.toFixed(2)} ZTH
+              </div>
+              <LogoutButton />
+            </>
           ) : (
             <Button variant="default" asChild>
               <Link href="/login">Se connecter</Link>
